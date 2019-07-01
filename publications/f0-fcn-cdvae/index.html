@@ -1,0 +1,124 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Investigation of F0 conditioning and Fully Convolutional Networks in Variational Autoencoder based Voice Conversion</title>
+    <link rel="stylesheet" type="text/css" href="../../stylesheet.css"/>
+    <link rel="shortcut icon" href="../../imgs/talk.png">
+  </head>
+  <body>
+    <article>
+      <header>
+        <h1>Investigation of F0 conditioning and Fully Convolutional Networks in Variational Autoencoder based Voice Conversion</h1>
+      </header>
+    </article>
+
+    <div><b>Paper:</b> <a href="https://arxiv.org/abs/1905.00615">[arXiv]</a> </div>
+    <div><b>Authors:</b> Wen-Chin Huang, Yi-Chiao Wu, Chen-Chou Lo, Patrick Lumban Tobing, Tomoki Hayashi, Kazuhiro Kobayashi, Tomoki Toda, Yu Tsao, Hsin-Min Wang</div>
+    <div><b>Comments:</b> Accepted to Interspeech 2019. </div>
+
+    <br>
+    
+    <div><b>Abstract:</b> In this work, we investigate the effectiveness of two techniques 
+      for improving variational autoencoder (VAE) based voice conversion (VC). First, we 
+      reconsider the relationship between vocoder features extracted using the high quality 
+      vocoders adopted in conventional VC systems, and hypothesize that the spectral 
+      features are in fact F0 dependent. Such hypothesis implies that during the conversion phase, 
+      the latent codes and the converted features in VAE based VC are in fact source F0 dependent. 
+      To this end, we propose to utilize the F0 as an additional input of the decoder. 
+      The model can learn to disentangle the latent code from the F0 and thus generates converted 
+      F0 dependent converted features. Second, to better capture temporal dependencies of the spectral 
+      features and the F0 pattern, we replace the frame wise conversion structure in the original 
+      VAE based VC framework with a fully convolutional network structure. 
+      Our experiments demonstrate that the degree of disentanglement as well as the naturalness of 
+      the converted speech are indeed improved.</div>
+
+    <div>
+      <h2>Model architecture</h2>
+      <img src="imgs/f0vae.png" style="width: 40%;"/>
+    </div>
+
+    <div>
+        <h2>Speech Samples</h2> 
+        We evaluated our proposed framework on the <b>Voice Conversion Challenge 2018 (VCC 2018) dataset</b>. <a href="https://arxiv.org/abs/1804.04262">[Paper]</a> <a href="https://datashare.is.ed.ac.uk/handle/10283/3061">[Datasets]</a>
+        
+        <h2>SF1-TF1</h2> 
+        <table>
+            <tr>
+              <td>Source</td><td><audio controls><source src="samples/natural/SF1-30001.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>Target</td><td><audio controls><source src="samples/natural/TF1-30001.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE<br>(frame-wise)</td><td><audio controls><source src="samples/cdvae/SF1-TF1-30001-gv.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>FCN-CDVAE</td><td><audio controls><source src="samples/fcn-cdvae/SF1-TF1-30001-gv.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>F0-FCN-CDVAE</td><td><audio controls><source src="samples/f0-fcn-cdvae/SF1-TF1-30001-gv.wav"></audio></td>
+            </tr>
+        </table>
+
+        <h2>SF1-TM1</h2> 
+        <table>
+            <tr>
+              <td>Source</td><td><audio controls><source src="samples/natural/SF1-30001.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>Target</td><td><audio controls><source src="samples/natural/TM1-30001.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE<br>(frame-wise)</td><td><audio controls><source src="samples/cdvae/SF1-TM1-30001-gv.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>FCN-CDVAE</td><td><audio controls><source src="samples/fcn-cdvae/SF1-TM1-30001-gv.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>F0-FCN-CDVAE</td><td><audio controls><source src="samples/f0-fcn-cdvae/SF1-TM1-30001-gv.wav"></audio></td>
+            </tr>
+        </table>
+
+        <h2>SM1-TF1</h2> 
+        <table>
+            <tr>
+              <td>Source</td><td><audio controls><source src="samples/natural/SM1-30001.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>Target</td><td><audio controls><source src="samples/natural/TF1-30001.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE<br>(frame-wise)</td><td><audio controls><source src="samples/cdvae/SM1-TF1-30001-gv.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>FCN-CDVAE</td><td><audio controls><source src="samples/fcn-cdvae/SM1-TF1-30001-gv.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>F0-FCN-CDVAE</td><td><audio controls><source src="samples/f0-fcn-cdvae/SM1-TF1-30001-gv.wav"></audio></td>
+            </tr>
+        </table>
+
+        <h2>SM1-TM1</h2> 
+        <table>
+            <tr>
+              <td>Source</td><td><audio controls><source src="samples/natural/SM1-30001.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>Target</td><td><audio controls><source src="samples/natural/TM1-30001.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE<br>(frame-wise)</td><td><audio controls><source src="samples/cdvae/SM1-TM1-30001-gv.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>FCN-CDVAE</td><td><audio controls><source src="samples/fcn-cdvae/SM1-TM1-30001-gv.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>F0-FCN-CDVAE</td><td><audio controls><source src="samples/f0-fcn-cdvae/SM1-TM1-30001-gv.wav"></audio></td>
+            </tr>
+        </table>
+      
+      </div>
+      
+  <div><a href="../../index.html">[Back to top]</a> </div>
+  </body>
+</html>
