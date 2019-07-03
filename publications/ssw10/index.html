@@ -1,0 +1,115 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Generalization of Spectrum Differential based Direct Waveform Modification for Voice Conversion</title>
+    <link rel="stylesheet" type="text/css" href="../../stylesheet.css"/>
+    <link rel="shortcut icon" href="../../imgs/talk.png">
+  </head>
+  <body>
+    <article>
+      <header>
+        <h1>Generalization of Spectrum Differential based Direct Waveform Modification for Voice Conversion</h1>
+      </header>
+    </article>
+
+    <div><b>Paper:</b> to be uploaded </div>
+    <div><b>Authors:</b> Wen-Chin Huang, Yi-Chiao Wu, Kazuhiro Kobayashi, Yu-Huai Peng, Hsin-Te Hwang, Patrick Lumban Tobing, Yu Tsao, Hsin-Min Wang and Tomoki Toda</div>
+    <div><b>Comments:</b> Accepted to SSW10. </div>
+
+    <br>
+    
+    <div style="width: 80%">
+      <b>Abstract:</b> We present a modification to the spectrum differential based direct waveform modification for voice 
+      conversion (DIFFVC) so that it can be directly applied as a waveform generation module to voice conversion models. The 
+      recently proposed DIFFVC avoids the use of a vocoder, meanwhile preserves rich spectral details hence capable of generating 
+      high quality converted voice. To apply the DIFFVC framework, a model that can estimate the spectral differential from the F0 
+      transformed input speech needs to be trained beforehand. This requirement imposes several constraints, including a limitation 
+      on the estimation model to parallel training and the need of extra training on each conversion pair, which makes DIFFVC 
+      inflexible. Based on the above motivations, we propose a new DIFFVC framework based on an F0 transformation in the residual 
+      domain. By performing inverse filtering on the input signal followed by synthesis filtering on the F0 transformed residual 
+      signal using the converted spectral features directly, the spectral conversion model dose not need to be retrained or capable 
+      of predicting the spectral differential. We describe several details that need to be taken care of under this modification, 
+      and by applying our proposed method to a non-parallel, variational autoencoder (VAE)-based spectral conversion model, we 
+      demonstrate that this framework can be generalized to any spectral conversion model, and experimental evaluations show that 
+      it can outperform a baseline framework whose waveform generation process is carried out by a vocoder.
+    </div>
+
+    <div>
+      <h2>Proposed framework</h2>
+      <img src="imgs/proposed.png" style="width: 60%;"/>
+    </div>
+
+    <div style="width: 80%">
+        <h2>Speech Samples</h2> 
+        We evaluated our proposed framework on the <b>Voice Conversion Challenge 2018 (VCC 2018) dataset</b>.
+        <a href="https://arxiv.org/abs/1804.04262">[Paper]</a> <a href="https://datashare.is.ed.ac.uk/handle/10283/3061">[Datasets]</a><br>
+        Specifically, we evaluted on the SPOKE task, which was a non-parallel VC task.
+        <h2>SF3-TF1</h2> 
+        <table>
+            <tr>
+              <td>Source</td><td><audio controls><source src="samples/natural/SF3-30001.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>Target</td><td><audio controls><source src="samples/natural/TF1-30001.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>WORLD</td><td><audio controls><source src="samples/world/SF3-TF1-30001-gv.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>Proposed</td><td><audio controls><source src="samples/diff/yh-SF3-TF1-30001-sub.wav"></audio></td>
+            </tr>
+        </table>
+
+        <h2>SF3-TM1</h2> 
+        <table>
+            <tr>
+              <td>Source</td><td><audio controls><source src="samples/natural/SF3-30001.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>Target</td><td><audio controls><source src="samples/natural/TM1-30001.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>WORLD</td><td><audio controls><source src="samples/world/SF3-TM1-30001-gv.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>Proposed</td><td><audio controls><source src="samples/diff/yh-SF3-TM1-30001-sub.wav"></audio></td>
+            </tr>
+        </table>
+
+        <h2>SM3-TF1</h2> 
+        <table>
+            <tr>
+              <td>Source</td><td><audio controls><source src="samples/natural/SM3-30001.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>Target</td><td><audio controls><source src="samples/natural/TF1-30001.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>WORLD</td><td><audio controls><source src="samples/world/SM3-TF1-30001-gv.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>Proposed</td><td><audio controls><source src="samples/diff/yh-SM3-TF1-30001-sub.wav"></audio></td>
+            </tr>
+        </table>
+
+        <h2>SM3-TM1</h2> 
+        <table>
+            <tr>
+              <td>Source</td><td><audio controls><source src="samples/natural/SM3-30001.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>Target</td><td><audio controls><source src="samples/natural/TM1-30001.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>WORLD</td><td><audio controls><source src="samples/world/SM3-TM1-30001-gv.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>Proposed</td><td><audio controls><source src="samples/diff/yh-SM3-TM1-30001-sub.wav"></audio></td>
+            </tr>
+        </table>
+      
+      </div>
+      
+  <div><a href="../../index.html">[Back to top]</a> </div>
+  </body>
+</html>
