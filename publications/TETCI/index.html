@@ -1,0 +1,174 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Unsupervised Representation Disentanglement using Cross Domain Features and Adversarial Learning in Variational Autoencoder based Voice Conversion</title>
+    <link rel="stylesheet" type="text/css" href="../../stylesheet.css"/>
+    <link rel="shortcut icon" href="../../imgs/talk.png">
+  </head>
+  <body>
+    <article>
+      <header>
+        <h1>Unsupervised Representation Disentanglement using Cross Domain Features and Adversarial Learning in Variational Autoencoder based Voice Conversion</h1>
+      </header>
+    </article>
+
+    <div><b>Paper:</b> to be uploaded </div>
+    <div><b>Authors:</b> Wen-Chin Huang, Hao Luo, Hsin-Te Hwang, Chen-Chou Lo, Yu-Huai Peng, Yu Tsao, Hsin-Min Wang</div>
+    <div><b>Comments:</b> Submitted to IEEE Transactions on Emerging Topics in Computational Intelligence. </div>
+
+    <br>
+    
+    <div style="width: 80%">
+      <b>Abstract:</b> An effective approach for voice conversion (VC) is to disentangle linguistic content from other 
+      components in the speech signal. The effectiveness of variational autoencoder (VAE) based VC (VAE-VC), for instance, 
+      strongly relies on this principle. In our prior work, we proposed a cross-domain VAE-VC (CDVAE-VC) framework, which 
+      utilized acoustic features of different properties, to improve the performance of VAE-VC. We believed that the success 
+      came from more disentangled latent representations. In this paper, we extend the CDVAE-VC framework by incorporating 
+      the concept of adversarial learning, in order to further increase the degree of disentanglement, thereby improving 
+      the quality and similarity of converted speech. More specifically, we first investigate the effectiveness of incorporating 
+      the generative adversarial networks (GANs) with CDVAE-VC. Then, we consider the concept of domain adversarial training 
+      and add an explicit constraint to the latent representation, realized by a speaker classifier, to explicitly eliminate 
+      the speaker information that resides in the latent code. Experimental results confirm that the degree of disentanglement 
+      of the learned latent representation can be enhanced by both GANs and the speaker classifier. Meanwhile, subjective evaluation 
+      results in terms of quality and similarity scores demonstrate the effectiveness of our proposed methods.
+    </div>
+
+    <div>
+      <h2>Proposed framework</h2>
+      <img src="imgs/proposed.png" style="width: 60%;"/>
+    </div>
+
+    <div style="width: 80%">
+        <h2>Speech Samples</h2> 
+        We evaluated our proposed framework on the <b>Voice Conversion Challenge 2018 (VCC 2018) dataset</b>.
+        <a href="https://arxiv.org/abs/1804.04262">[Paper]</a> <a href="https://datashare.is.ed.ac.uk/handle/10283/3061">[Datasets]</a><br>
+        Specifically, we evaluted on the HUB task, which was a parallel VC task.
+        <h2>SF1-TF1</h2> 
+        <table>
+            <tr>
+              <td>Source</td><td><audio controls><source src="samples/natural/SF1-30001.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>Target</td><td><audio controls><source src="samples/natural/TF1-30001.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE</td><td><audio controls><source src="samples/cdvae/SF1-TF1-30001-mod-pow.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE w/ GV</td><td><audio controls><source src="samples/cdvae-gv/SF1-TF1-30001-gv-mod-pow.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE-CLS</td><td><audio controls><source src="samples/cdvae-cls/SF1-TF1-30001-mod-pow.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE-CLS w/ GV</td><td><audio controls><source src="samples/cdvae-cls-gv/SF1-TF1-30001-gv-mod-pow.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE-GAN_MCC</td><td><audio controls><source src="samples/cdvae-gan-mcc/SF1-TF1-30001-mod-pow.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE-CLS-GAN_SP</td><td><audio controls><source src="samples/cdvae-cls-gan-sp/SF1-TF1-30001-mod-pow.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE-CLS-GAN_MCC</td><td><audio controls><source src="samples/cdvae-cls-gan-mcc/SF1-TF1-30001-mod-pow.wav"></audio></td>
+            </tr>
+        </table>
+
+        <h2>SF1-TM1</h2> 
+        <table>
+            <tr>
+              <td>Source</td><td><audio controls><source src="samples/natural/SF1-30001.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>Target</td><td><audio controls><source src="samples/natural/TM1-30001.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE</td><td><audio controls><source src="samples/cdvae/SF1-TM1-30001-mod-pow.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE w/ GV</td><td><audio controls><source src="samples/cdvae-gv/SF1-TM1-30001-gv-mod-pow.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE-CLS</td><td><audio controls><source src="samples/cdvae-cls/SF1-TM1-30001-mod-pow.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE-CLS w/ GV</td><td><audio controls><source src="samples/cdvae-cls-gv/SF1-TM1-30001-gv-mod-pow.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE-GAN_MCC</td><td><audio controls><source src="samples/cdvae-gan-mcc/SF1-TM1-30001-mod-pow.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE-CLS-GAN_SP</td><td><audio controls><source src="samples/cdvae-cls-gan-sp/SF1-TM1-30001-mod-pow.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE-CLS-GAN_MCC</td><td><audio controls><source src="samples/cdvae-cls-gan-mcc/SF1-TM1-30001-mod-pow.wav"></audio></td>
+            </tr>
+        </table>
+
+        <h2>SM1-TF1</h2> 
+        <table>
+            <tr>
+              <td>Source</td><td><audio controls><source src="samples/natural/SM1-30001.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>Target</td><td><audio controls><source src="samples/natural/TF1-30001.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE</td><td><audio controls><source src="samples/cdvae/SM1-TF1-30001-mod-pow.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE w/ GV</td><td><audio controls><source src="samples/cdvae-gv/SM1-TF1-30001-gv-mod-pow.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE-CLS</td><td><audio controls><source src="samples/cdvae-cls/SM1-TF1-30001-mod-pow.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE-CLS w/ GV</td><td><audio controls><source src="samples/cdvae-cls-gv/SM1-TF1-30001-gv-mod-pow.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE-GAN_MCC</td><td><audio controls><source src="samples/cdvae-gan-mcc/SM1-TF1-30001-mod-pow.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE-CLS-GAN_SP</td><td><audio controls><source src="samples/cdvae-cls-gan-sp/SM1-TF1-30001-mod-pow.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE-CLS-GAN_MCC</td><td><audio controls><source src="samples/cdvae-cls-gan-mcc/SM1-TF1-30001-mod-pow.wav"></audio></td>
+            </tr>
+        </table>
+
+        <h2>SM1-TM1</h2> 
+        <table>
+            <tr>
+              <td>Source</td><td><audio controls><source src="samples/natural/SM1-30001.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>Target</td><td><audio controls><source src="samples/natural/TM1-30001.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE</td><td><audio controls><source src="samples/cdvae/SM1-TM1-30001-mod-pow.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE w/ GV</td><td><audio controls><source src="samples/cdvae-gv/SM1-TM1-30001-gv-mod-pow.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE-CLS</td><td><audio controls><source src="samples/cdvae-cls/SM1-TM1-30001-mod-pow.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE-CLS w/ GV</td><td><audio controls><source src="samples/cdvae-cls-gv/SM1-TM1-30001-gv-mod-pow.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE-GAN_MCC</td><td><audio controls><source src="samples/cdvae-gan-mcc/SM1-TM1-30001-mod-pow.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE-CLS-GAN_SP</td><td><audio controls><source src="samples/cdvae-cls-gan-sp/SM1-TM1-30001-mod-pow.wav"></audio></td>
+            </tr>
+            <tr>
+              <td>CDVAE-CLS-GAN_MCC</td><td><audio controls><source src="samples/cdvae-cls-gan-mcc/SM1-TM1-30001-mod-pow.wav"></audio></td>
+            </tr>
+        </table>
+      
+      </div>
+      
+  <div><a href="../../index.html">[Back to top]</a> </div>
+  </body>
+</html>
