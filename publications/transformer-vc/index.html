@@ -1,0 +1,233 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Voice Transformer Network: Sequence-to Sequence Voice Conversion using Transformer with Text-to-Speech Pre-Training</title>
+    <link rel="stylesheet" type="text/css" href="../../stylesheet.css"/>
+    <link rel="shortcut icon" href="../../imgs/talk.png">
+  </head>
+  <body>
+    <article>
+      <header>
+        <h1>Voice Transformer Network: Sequence-to Sequence Voice Conversion using Transformer with Text-to-Speech Pre-Training</h1>
+      </header>
+    </article>
+
+    <div><b>Paper:</b> to be uploaded </div>
+    <div><b>Authors:</b> Wen-Chin Huang, Tomoki Hayashi, Yi-Chiao Wu, Tomoki Toda</div>
+    <div><b>Comments:</b> Preprint. Work in progress. </div>
+
+    <br>
+    
+    <div style="width: 80%">
+      <b>Abstract:</b> We introduce a novel sequence-to-sequence (seq2seq) voice conversion (VC) model based on the Transformer architecture with text-to-speech (TTS) pre-training. Seq2seq VC models are attractive owing to their ability to convert prosody. While recurrent and convolutional based seq2seq models have been successfully applied to VC, the use of the Transformer network, which has shown promising results in various speech processing tasks, has not yet been investigated. Nonetheless, the data-hungry property and the mispronunciation in the converted speech make seq2seq models far from practical. To this end, we propose a simple yet effective pre-training technique to transfer knowledge from learned TTS models, which benefit from large scale, easily accessible TTS corpora. VC models initialized with such pre-trained model parameters are able to generate effective hidden representation for high-fidelity, highly intelligible converted speech. Experimental results show that such pre-training scheme can facilitate data efficient training, meanwhile outperform an RNN-based seq2seq VC model in terms of intelligibility, naturalness and similarity.
+    </div>
+
+    <div style="width: 80%">
+      <h2>Models</h2>
+      <ul>
+        <li><strong>Source, Target</strong>: Natural speech of the source and target speakers.</li>
+        <li><strong>TTS adaptation</strong>: A Transformer-TTS model first pre-trained then adapted to the target speaker.</li>
+        <li><strong>ATTS2S</strong>: An RNN-based seq2seq VC model.</li>
+        <li><strong>VTN</strong>: The proposed Voice Transformer Network.</li>
+      </ul>
+    </div>
+
+    <div style="width: 80%">
+        <h2>Speech Samples</h2> 
+ 
+        <h3 class="transcript">Transcription: There were stir and bustle, new faces, and fresh facts.</h3>
+        <br>
+        <table>
+            <tr style="border-top: solid; border-bottom: solid;">
+              <th>Model</th><th>clb(F)-slt(F)</th><th>bdl(M)-slt(F)</th>
+            </tr>
+
+            <tr>
+                <td>Source</td>
+                <td>
+                  <audio controls><source src="samples/golden/clb/arctic_b0440.wav"></audio>
+                </td>
+                <td>
+                  <audio controls><source src="samples/golden/bdl/arctic_b0440.wav"></audio>
+                </td>
+              </tr>
+
+            <tr>
+              <td>Target</td>
+              <td colspan="2">
+                <audio controls><source src="samples/golden/slt/arctic_b0440.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>TTS adaptation (932)</td>
+              <td colspan="2">
+                <audio controls><source src="samples/tts/slt/slt_arctic_b0440-feats_gen.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>ATTS2S (932)</td>
+              <td>
+                <audio controls><source src="samples/atts2s/clb-slt/arctic_b0440-feats_gen.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/atts2s/bdl-slt/arctic_b0440-feats_gen.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>VTN (932)</td>
+              <td>
+                <audio controls><source src="samples/vtn-932/clb-slt/arctic_b0440-feats_gen.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/vtn-932/bdl-slt/arctic_b0440-feats_gen.wav"></audio>
+              </td>
+            </tr>
+
+            <tr style="border-bottom: solid;">
+              <td>VTN (80)</td>
+              <td>
+                <audio controls><source src="samples/vtn-80/clb-slt/arctic_b0440-feats_gen.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/vtn-80/bdl-slt/arctic_b0440-feats_gen.wav"></audio>
+              </td>
+            </tr>
+
+        </table>
+
+        <h3 class="transcript">Transcription: And there was Ethel Baird, whom also you must remember.</h3>
+        <br>
+        <table>
+            <tr style="border-top: solid; border-bottom: solid;">
+              <th>Model</th><th>clb(F)-slt(F)</th><th>bdl(M)-slt(F)</th>
+            </tr>
+
+            <tr>
+                <td>Source</td>
+                <td>
+                  <audio controls><source src="samples/golden/clb/arctic_b0441.wav"></audio>
+                </td>
+                <td>
+                  <audio controls><source src="samples/golden/bdl/arctic_b0441.wav"></audio>
+                </td>
+              </tr>
+
+            <tr>
+              <td>Target</td>
+              <td colspan="2">
+                <audio controls><source src="samples/golden/slt/arctic_b0441.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>TTS adaptation (932)</td>
+              <td colspan="2">
+                <audio controls><source src="samples/tts/slt/slt_arctic_b0441-feats_gen.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>ATTS2S (932)</td>
+              <td>
+                <audio controls><source src="samples/atts2s/clb-slt/arctic_b0441-feats_gen.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/atts2s/bdl-slt/arctic_b0441-feats_gen.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>VTN (932)</td>
+              <td>
+                <audio controls><source src="samples/vtn-932/clb-slt/arctic_b0441-feats_gen.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/vtn-932/bdl-slt/arctic_b0441-feats_gen.wav"></audio>
+              </td>
+            </tr>
+
+            <tr style="border-bottom: solid;">
+              <td>VTN (80)</td>
+              <td>
+                <audio controls><source src="samples/vtn-80/clb-slt/arctic_b0441-feats_gen.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/vtn-80/bdl-slt/arctic_b0441-feats_gen.wav"></audio>
+              </td>
+            </tr>
+
+        </table>
+        
+        <h3 class="transcript">Transcription: He had become a man very early in life.</h3>
+        <br>
+        <table>
+            <tr style="border-top: solid; border-bottom: solid;">
+              <th>Model</th><th>clb(F)-slt(F)</th><th>bdl(M)-slt(F)</th>
+            </tr>
+
+            <tr>
+                <td>Source</td>
+                <td>
+                  <audio controls><source src="samples/golden/clb/arctic_b0442.wav"></audio>
+                </td>
+                <td>
+                  <audio controls><source src="samples/golden/bdl/arctic_b0442.wav"></audio>
+                </td>
+              </tr>
+
+            <tr>
+              <td>Target</td>
+              <td colspan="2">
+                <audio controls><source src="samples/golden/slt/arctic_b0442.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>TTS adaptation (932)</td>
+              <td colspan="2">
+                <audio controls><source src="samples/tts/slt/slt_arctic_b0442-feats_gen.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>ATTS2S (932)</td>
+              <td>
+                <audio controls><source src="samples/atts2s/clb-slt/arctic_b0442-feats_gen.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/atts2s/bdl-slt/arctic_b0442-feats_gen.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>VTN (932)</td>
+              <td>
+                <audio controls><source src="samples/vtn-932/clb-slt/arctic_b0442-feats_gen.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/vtn-932/bdl-slt/arctic_b0442-feats_gen.wav"></audio>
+              </td>
+            </tr>
+
+            <tr style="border-bottom: solid;">
+              <td>VTN (80)</td>
+              <td>
+                <audio controls><source src="samples/vtn-80/clb-slt/arctic_b0442-feats_gen.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/vtn-80/bdl-slt/arctic_b0442-feats_gen.wav"></audio>
+              </td>
+            </tr>
+
+        </table>
+      
+
+      </div>
+      
+  <br>
+  <div><a href="../../index.html">[Back to top]</a> </div>
+  </body>
+</html>

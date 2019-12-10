@@ -75,3 +75,16 @@ td.algorithm {
 td.synthesis {
   text-align:center;
 }
+td {
+  text-align: center;
+}
+
+th, td {
+  padding: 5px;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 5px;
+  border: 10px;
+}
