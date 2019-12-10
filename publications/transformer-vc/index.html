@@ -17,24 +17,30 @@
     <div><b>Comments:</b> Preprint. Work in progress. </div>
 
     <br>
-    
+
     <div style="width: 80%">
       <b>Abstract:</b> We introduce a novel sequence-to-sequence (seq2seq) voice conversion (VC) model based on the Transformer architecture with text-to-speech (TTS) pre-training. Seq2seq VC models are attractive owing to their ability to convert prosody. While recurrent and convolutional based seq2seq models have been successfully applied to VC, the use of the Transformer network, which has shown promising results in various speech processing tasks, has not yet been investigated. Nonetheless, the data-hungry property and the mispronunciation in the converted speech make seq2seq models far from practical. To this end, we propose a simple yet effective pre-training technique to transfer knowledge from learned TTS models, which benefit from large scale, easily accessible TTS corpora. VC models initialized with such pre-trained model parameters are able to generate effective hidden representation for high-fidelity, highly intelligible converted speech. Experimental results show that such pre-training scheme can facilitate data efficient training, meanwhile outperform an RNN-based seq2seq VC model in terms of intelligibility, naturalness and similarity.
+    </div>
+
+    <div style="width: 80%">
+      <h2>Dataset</h2>
+        We conducted all our experiments on the <a href="http://www.festvox.org/cmu_arctic/">CMU Arctic database</a>.<br>
+        A male speaker (<i>bdl</i>) and a female speaker (<i>clb</i>) were chosen as source speakers, and a female speaker (<i>slt</i>) was chosen as the target speaker.
     </div>
 
     <div style="width: 80%">
       <h2>Models</h2>
       <ul>
         <li><strong>Source, Target</strong>: Natural speech of the source and target speakers.</li>
-        <li><strong>TTS adaptation</strong>: A Transformer-TTS model first pre-trained then adapted to the target speaker.</li>
-        <li><strong>ATTS2S</strong>: An RNN-based seq2seq VC model.</li>
+        <li><a href="https://espnet.github.io/espnet-tts-sample/egs/ljspeech/transformer.v1/"><strong>TTS adaptation</strong></a>: A Transformer-TTS model first pre-trained then adapted to the target speaker.</li>
+        <li><a href="http://www.kecl.ntt.co.jp/people/tanaka.ko/projects/atts2svc/index.html"><strong>ATTS2S</strong></a>: An RNN-based seq2seq VC model.</li>
         <li><strong>VTN</strong>: The proposed Voice Transformer Network.</li>
       </ul>
     </div>
 
     <div style="width: 80%">
-        <h2>Speech Samples</h2> 
- 
+        <h2>Speech Samples</h2>
+
         <h3 class="transcript">Transcription: There were stir and bustle, new faces, and fresh facts.</h3>
         <br>
         <table>
@@ -160,7 +166,7 @@
             </tr>
 
         </table>
-        
+
         <h3 class="transcript">Transcription: He had become a man very early in life.</h3>
         <br>
         <table>
@@ -223,10 +229,10 @@
             </tr>
 
         </table>
-      
+
 
       </div>
-      
+
   <br>
   <div><a href="../../index.html">[Back to top]</a> </div>
   </body>
