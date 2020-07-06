@@ -1,0 +1,492 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Pretraining Techniques for Sequence-to-Sequence Voice Conversion</title>
+    <link rel="stylesheet" type="text/css" href="../../stylesheet.css"/>
+    <link rel="shortcut icon" href="../../imgs/talk.png">
+  </head>
+  <body>
+    <article>
+      <header>
+        <h1>Pretraining Techniques for Sequence-to-Sequence Voice Conversion</h1>
+      </header>
+    </article>
+
+    <div><b>Paper:</b> To be uploaded.</div>
+    <div><b>Authors:</b> Wen-Chin Huang, Tomoki Hayashi, Yi-Chiao Wu, Hirokazu Kameoka, Tomoki Toda</div>
+    <div><b>Comments:</b> Submitted to IEEE/ACM Transactions on Audio, Speech and Language Processing.</div>
+
+    <br>
+
+    <div style="width: 80%">
+      <b>Abstract:</b> Sequence-to-sequence (seq2seq) voice conversion (VC) models are attractive owing to their ability to convert prosody. Nonetheless, without sufficient data, seq2seq VC models can suffer from unstable training and mispronunciation problems in the converted speech, thus far from practical. To tackle these shortcomings, we propose to transfer knowledge from other speech processing tasks where large-scale corpora are easily available, typically text-to-speech (TTS) and automatic speech recognition (ASR). We argue that VC models initialized with such pretrained ASR or TTS model parameters can generate effective hidden representations for high-fidelity, highly intelli- gible converted speech. We apply such techniques to recurrent neural network (RNN)-based and Transformer based models, and through systematical experiments, we demonstrate the effective- ness of the pretraining scheme and the superiority of Transformer based models over RNN-based models in terms of intelligibility, naturalness, and similarity.
+    </div>
+
+    <div>
+      <h2>Main concept</h2>
+      <img src="imgs/pretraining-for-seq2seq-vc.png" style="width: 20%;"/>
+    </div>
+
+    <div style="width: 80%">
+      <h2>Dataset</h2>
+        We conducted all our experiments on the <a href="http://www.festvox.org/cmu_arctic/">CMU Arctic database</a>.<br>
+        A male speaker (<i>bdl</i>) and a female speaker (<i>clb</i>) were chosen as source speakers, and a male speaker (<i>rms</i>) and a female speaker (<i>slt</i>) were chosen as the target speakers.
+    </div>
+
+    <div style="width: 80%">
+      <h2>Models</h2>
+      <ul>
+        <li><strong>Source, Target</strong>: Natural speech of the source and target speakers.</li>
+        <li><strong>Analysis-Synthesis</strong>: Analysis-synthesis samples from the Parallel WaveGAN vocoder.</li>
+        <li><strong>VTN</strong>: The Voice Transformer Network (Transformer-VC).</li>
+        <li><strong>RNN</strong>: The RNN-based model.</li>
+      </ul>
+    </div>
+
+    <div style="width: 80%">
+        <h2>Speech Samples</h2>
+
+        <h3 class="transcript">Transcription: There were stir and bustle, new faces, and fresh facts.</h3>
+        <br>
+        <table>
+            <tr style="border-top: solid; border-bottom: solid;">
+              <th>Model</th><th>Pretraining</th><th># training utterances</th><th>clb(F)-slt(F)</th><th>bdl(M)-slt(F)</th><th>clb(F)-rms(M)</th><th>bdl(M)-rms(M)</th>
+            </tr>
+
+            <tr>
+                <td>Source</td>
+                <td>-</td>
+                <td>-</td>
+                <td>
+                  <audio controls><source src="samples/ground-truth/clb/arctic_b0440.wav"></audio>
+                </td>
+                <td>
+                  <audio controls><source src="samples/ground-truth/bdl/arctic_b0440.wav"></audio>
+                </td>
+                <td>
+                  <audio controls><source src="samples/ground-truth/clb/arctic_b0440.wav"></audio>
+                </td>
+                <td>
+                  <audio controls><source src="samples/ground-truth/bdl/arctic_b0440.wav"></audio>
+                </td>
+              </tr>
+
+            <tr>
+              <td>Target</td>
+              <td>-</td>
+              <td>-</td>
+              <td colspan="2">
+                <audio controls><source src="samples/ground-truth/slt/arctic_b0440.wav"></audio>
+              </td>
+              <td colspan="2">
+                <audio controls><source src="samples/ground-truth/rms/arctic_b0440.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Analysis-Synthesis</td>
+              <td>-</td>
+              <td>-</td>
+              <td colspan="2">
+                <audio controls><source src="samples/analysis-synthesis/slt/slt_arctic_b0440_gen"></audio>
+              </td>
+              <td colspan="2">
+                <audio controls><source src="samples/analysis-synthesis/rms/rms_arctic_b0440_gen.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td rowspan="6">VTN</td>
+              <td rowspan="2">None</td>
+              <td>932</td>
+              <td>
+                <audio controls><source src="samples/vtn-nopt-n932/clb-slt/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/vtn-nopt-n932/bdl-slt/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/vtn-nopt-n932/clb-rms/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/vtn-nopt-n932/clb-rms/arctic_b0440.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>80</td>
+              <td>
+                <audio controls><source src="samples/vtn-nopt-n80/clb-slt/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/vtn-nopt-n80/bdl-slt/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/vtn-nopt-n80/clb-rms/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/vtn-nopt-n80/clb-rms/arctic_b0440.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td rowspan="2">TTS</td>
+              <td>932</td>
+              <td>
+                <audio controls><source src="samples/vtn-tts-pt-n932/clb-slt/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/vtn-tts-pt-n932/bdl-slt/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/vtn-tts-pt-n932/clb-rms/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/vtn-tts-pt-n932/clb-rms/arctic_b0440.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>80</td>
+              <td>
+                <audio controls><source src="samples/vtn-tts-pt-n80/clb-slt/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/vtn-tts-pt-n80/bdl-slt/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/vtn-tts-pt-n80/clb-rms/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/vtn-tts-pt-n80/clb-rms/arctic_b0440.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td rowspan="2">ASR</td>
+              <td>932</td>
+              <td>
+                <audio controls><source src="samples/vtn-asr-pt-n932/clb-slt/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/vtn-asr-pt-n932/bdl-slt/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/vtn-asr-pt-n932/clb-rms/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/vtn-asr-pt-n932/clb-rms/arctic_b0440.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>80</td>
+              <td>
+                <audio controls><source src="samples/vtn-asr-pt-n80/clb-slt/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/vtn-asr-pt-n80/bdl-slt/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/vtn-asr-pt-n80/clb-rms/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/vtn-asr-pt-n80/clb-rms/arctic_b0440.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td rowspan="4">RNN</td>
+              <td rowspan="2">None</td>
+              <td>932</td>
+              <td>
+                <audio controls><source src="samples/rnn-nopt-n932/clb-slt/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/rnn-nopt-n932/bdl-slt/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/rnn-nopt-n932/clb-rms/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/rnn-nopt-n932/clb-rms/arctic_b0440.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>80</td>
+              <td>
+                <audio controls><source src="samples/rnn-nopt-n80/clb-slt/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/rnn-nopt-n80/bdl-slt/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/rnn-nopt-n80/clb-rms/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/rnn-nopt-n80/clb-rms/arctic_b0440.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td rowspan="2">ASR</td>
+              <td>932</td>
+              <td>
+                <audio controls><source src="samples/rnn-tts-pt-n932/clb-slt/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/rnn-tts-pt-n932/bdl-slt/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/rnn-tts-pt-n932/clb-rms/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/rnn-tts-pt-n932/clb-rms/arctic_b0440.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>80</td>
+              <td>
+                <audio controls><source src="samples/rnn-tts-pt-n80/clb-slt/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/rnn-tts-pt-n80/bdl-slt/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/rnn-tts-pt-n80/clb-rms/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/rnn-tts-pt-n80/clb-rms/arctic_b0440.wav"></audio>
+              </td>
+            </tr>
+
+        </table>
+
+        <h3 class="transcript">Transcription: And there was Ethel Baird, whom also you must remember.</h3>
+        <br>
+        <table>
+          <tr style="border-top: solid; border-bottom: solid;">
+            <th>Model</th><th>Pretraining</th><th># training utterances</th><th>clb(F)-slt(F)</th><th>bdl(M)-slt(F)</th><th>clb(F)-rms(M)</th><th>bdl(M)-rms(M)</th>
+          </tr>
+
+          <tr>
+              <td>Source</td>
+              <td>-</td>
+              <td>-</td>
+              <td>
+                <audio controls><source src="samples/ground-truth/clb/arctic_b0441.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/ground-truth/bdl/arctic_b0441.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/ground-truth/clb/arctic_b0441.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/ground-truth/bdl/arctic_b0441.wav"></audio>
+              </td>
+            </tr>
+
+          <tr>
+            <td>Target</td>
+            <td>-</td>
+            <td>-</td>
+            <td colspan="2">
+              <audio controls><source src="samples/ground-truth/slt/arctic_b0441.wav"></audio>
+            </td>
+            <td colspan="2">
+              <audio controls><source src="samples/ground-truth/rms/arctic_b0441.wav"></audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Analysis-Synthesis</td>
+            <td>-</td>
+            <td>-</td>
+            <td colspan="2">
+              <audio controls><source src="samples/analysis-synthesis/slt/slt_arctic_b0441_gen.wav"></audio>
+            </td>
+            <td colspan="2">
+              <audio controls><source src="samples/analysis-synthesis/rms/rms_arctic_b0441_gen.wav"></audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td rowspan="6">VTN</td>
+            <td rowspan="2">None</td>
+            <td>932</td>
+            <td>
+              <audio controls><source src="samples/vtn-nopt-n932/clb-slt/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/vtn-nopt-n932/bdl-slt/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/vtn-nopt-n932/clb-rms/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/vtn-nopt-n932/clb-rms/arctic_b0441.wav"></audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td>80</td>
+            <td>
+              <audio controls><source src="samples/vtn-nopt-n80/clb-slt/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/vtn-nopt-n80/bdl-slt/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/vtn-nopt-n80/clb-rms/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/vtn-nopt-n80/clb-rms/arctic_b0441.wav"></audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td rowspan="2">TTS</td>
+            <td>932</td>
+            <td>
+              <audio controls><source src="samples/vtn-tts-pt-n932/clb-slt/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/vtn-tts-pt-n932/bdl-slt/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/vtn-tts-pt-n932/clb-rms/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/vtn-tts-pt-n932/clb-rms/arctic_b0441.wav"></audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td>80</td>
+            <td>
+              <audio controls><source src="samples/vtn-tts-pt-n80/clb-slt/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/vtn-tts-pt-n80/bdl-slt/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/vtn-tts-pt-n80/clb-rms/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/vtn-tts-pt-n80/clb-rms/arctic_b0441.wav"></audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td rowspan="2">ASR</td>
+            <td>932</td>
+            <td>
+              <audio controls><source src="samples/vtn-asr-pt-n932/clb-slt/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/vtn-asr-pt-n932/bdl-slt/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/vtn-asr-pt-n932/clb-rms/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/vtn-asr-pt-n932/clb-rms/arctic_b0441.wav"></audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td>80</td>
+            <td>
+              <audio controls><source src="samples/vtn-asr-pt-n80/clb-slt/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/vtn-asr-pt-n80/bdl-slt/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/vtn-asr-pt-n80/clb-rms/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/vtn-asr-pt-n80/clb-rms/arctic_b0441.wav"></audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td rowspan="4">RNN</td>
+            <td rowspan="2">None</td>
+            <td>932</td>
+            <td>
+              <audio controls><source src="samples/rnn-nopt-n932/clb-slt/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/rnn-nopt-n932/bdl-slt/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/rnn-nopt-n932/clb-rms/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/rnn-nopt-n932/clb-rms/arctic_b0441.wav"></audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td>80</td>
+            <td>
+              <audio controls><source src="samples/rnn-nopt-n80/clb-slt/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/rnn-nopt-n80/bdl-slt/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/rnn-nopt-n80/clb-rms/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/rnn-nopt-n80/clb-rms/arctic_b0441.wav"></audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td rowspan="2">ASR</td>
+            <td>932</td>
+            <td>
+              <audio controls><source src="samples/rnn-tts-pt-n932/clb-slt/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/rnn-tts-pt-n932/bdl-slt/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/rnn-tts-pt-n932/clb-rms/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/rnn-tts-pt-n932/clb-rms/arctic_b0441.wav"></audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td>80</td>
+            <td>
+              <audio controls><source src="samples/rnn-tts-pt-n80/clb-slt/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/rnn-tts-pt-n80/bdl-slt/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/rnn-tts-pt-n80/clb-rms/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/rnn-tts-pt-n80/clb-rms/arctic_b0441.wav"></audio>
+            </td>
+          </tr>
+
+      </table>
+
+        
+
+      </div>
+
+  <br>
+  <div><a href="../../index.html">[Back to top]</a> </div>
+  </body>
+</html>
