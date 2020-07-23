@@ -1,0 +1,274 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Discretized Self-Supervised Speech Representations for Many-to-One Sequence-to-Sequence Voice Conversion</title>
+    <link rel="stylesheet" type="text/css" href="../../stylesheet.css"/>
+    <link rel="shortcut icon" href="../../imgs/talk.png">
+  </head>
+  <body>
+    <article>
+      <header>
+        <h1>Discretized Self-Supervised Speech Representations for Many-to-One Sequence-to-Sequence Voice Conversion</h1>
+      </header>
+    </article>
+
+    <div><b>Paper:</b> To be uploaded.</div>
+    <div><b>Authors:</b> To be revealed.</div>
+    <div><b>Comments:</b> Submitted to SLT2021. </div>
+
+    <br>
+
+    <div style="width: 80%">
+      <b>Abstract:</b> We present a novel approach for many-to-one (M2O) voice conversion (VC) in a sequence-to-sequence (seq2seq) framework. M2O VC aims to convert any, including unknown, speakers to a fixed target speaker. We utilize vq-wav2vec, a discretized self-supervised speech representation that was learned from massive unlabeled data, which is assumed to be speaker-independent and well-corresponded to the underlying linguistic contents. Given a training dataset of the target speaker, we extract acoustic features and vq-wav2vec using a pretrained model to estimate a seq2seq mapping function from the latter to the former. With the help of a previously proposed pretraining method and a newly designed postprocessing technique, our model can be generalize to only 5 minutes of data, even outperforming the same model trained with parallel data. Notably, to our knowledge, this is the first work that adopts self-supervised speech representation in VC.
+    </div>
+
+    <div>
+      <h2>Proposed method</h2>
+      <img src="imgs/proposed.png" style="width: 30%;"/>
+    </div>
+
+    <div style="width: 80%">
+      <h2>Dataset</h2>
+        We conducted all our experiments on the <a href="http://www.festvox.org/cmu_arctic/">CMU Arctic database</a>.<br>
+        A male speaker (<i>bdl</i>) and a female speaker (<i>clb</i>) were chosen as source speakers, and a female speaker (<i>slt</i>) was chosen as the target speaker.
+    </div>
+
+    <div style="width: 80%">
+      <h2>Models</h2>
+      <ul>
+        <li><strong>Source, Target</strong>: Natural speech of the source and target speakers.</li>
+        <li><strong>Analysis-Synthesis</strong></a>: Analysis-synthesis samples from the Parallel WaveGAN vocoder.</li>
+        <li><a href="https://unilight.github.io/Publication-Demos/publications/transformer-vc/"><strong>VTN</strong></a>: Voice Transformer Network (a.k.a. Transformer-VC) trained with parallel data.</li>
+        <li><strong>Proposed</strong>: The proposed method with vq-wav2vec for M2O VC only using data from the target speaker.</li>
+      </ul>
+    </div>
+
+    <div style="width: 80%">
+        <h2>Speech Samples</h2>
+
+        <h3 class="transcript">Transcription: There were stir and bustle, new faces, and fresh facts.</h3>
+        <br>
+        <table>
+            <tr style="border-top: solid; border-bottom: solid;">
+              <th>Model</th><th>clb(F)-slt(F)</th><th>bdl(M)-slt(F)</th>
+            </tr>
+
+            <tr>
+                <td>Source</td>
+                <td>
+                  <audio controls><source src="samples/golden/clb/arctic_b0440.wav"></audio>
+                </td>
+                <td>
+                  <audio controls><source src="samples/golden/bdl/arctic_b0440.wav"></audio>
+                </td>
+              </tr>
+
+            <tr>
+              <td>Target</td>
+              <td colspan="2">
+                <audio controls><source src="samples/golden/slt/arctic_b0440.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Analysis-Synthesis</td>
+              <td colspan="2">
+                <audio controls><source src="samples/analysis-synthesis/slt/slt_arctic_b0440_gen.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>VTN (932)</td>
+              <td>
+                <audio controls><source src="samples/vtn-tts-pt-n932/clb-slt/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/vtn-tts-pt-n932/bdl-slt/arctic_b0440.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>VTN (80)</td>
+              <td>
+                <audio controls><source src="samples/vtn-tts-pt-n80/clb-slt/arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/vtn-tts-pt-n80/bdl-slt/arctic_b0440.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Proposed (932)</td>
+              <td>
+                <audio controls><source src="samples/proposed-n932/clb-slt/clb_arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/proposed-n932/bdl-slt/bdl_arctic_b0440.wav"></audio>
+              </td>
+            </tr>
+
+            <tr style="border-bottom: solid;">
+              <td>Proposed (80)</td>
+              <td>
+                <audio controls><source src="samples/proposed-n80/clb-slt/clb_arctic_b0440.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/proposed-n80/bdl-slt/bdl_arctic_b0440.wav"></audio>
+              </td>
+            </tr>
+
+        </table>
+
+        <h3 class="transcript">Transcription: And there was Ethel Baird, whom also you must remember.</h3>
+        <br>
+        <table>
+            <tr style="border-top: solid; border-bottom: solid;">
+              <th>Model</th><th>clb(F)-slt(F)</th><th>bdl(M)-slt(F)</th>
+            </tr>
+
+            <tr>
+              <td>Source</td>
+              <td>
+                <audio controls><source src="samples/golden/clb/arctic_b0441.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/golden/bdl/arctic_b0441.wav"></audio>
+              </td>
+            </tr>
+
+          <tr>
+            <td>Target</td>
+            <td colspan="2">
+              <audio controls><source src="samples/golden/slt/arctic_b0441.wav"></audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Analysis-Synthesis</td>
+            <td colspan="2">
+              <audio controls><source src="samples/analysis-synthesis/slt/slt_arctic_b0441_gen.wav"></audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td>VTN (932)</td>
+            <td>
+              <audio controls><source src="samples/vtn-tts-pt-n932/clb-slt/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/vtn-tts-pt-n932/bdl-slt/arctic_b0441.wav"></audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td>VTN (80)</td>
+            <td>
+              <audio controls><source src="samples/vtn-tts-pt-n80/clb-slt/arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/vtn-tts-pt-n80/bdl-slt/arctic_b0441.wav"></audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Proposed (932)</td>
+            <td>
+              <audio controls><source src="samples/proposed-n932/clb-slt/clb_arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/proposed-n932/bdl-slt/bdl_arctic_b0441.wav"></audio>
+            </td>
+          </tr>
+
+          <tr style="border-bottom: solid;">
+            <td>Proposed (80)</td>
+            <td>
+              <audio controls><source src="samples/proposed-n80/clb-slt/clb_arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/proposed-n80/bdl-slt/bdl_arctic_b0441.wav"></audio>
+            </td>
+          </tr>
+
+        </table>
+
+        <h3 class="transcript">Transcription: He had become a man very early in life.</h3>
+        <br>
+        <table>
+            <tr style="border-top: solid; border-bottom: solid;">
+              <th>Model</th><th>clb(F)-slt(F)</th><th>bdl(M)-slt(F)</th>
+            </tr>
+
+            <tr>
+              <td>Source</td>
+              <td>
+                <audio controls><source src="samples/golden/clb/arctic_b0442.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/golden/bdl/arctic_b0442.wav"></audio>
+              </td>
+            </tr>
+
+          <tr>
+            <td>Target</td>
+            <td colspan="2">
+              <audio controls><source src="samples/golden/slt/arctic_b0442.wav"></audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Analysis-Synthesis</td>
+            <td colspan="2">
+              <audio controls><source src="samples/analysis-synthesis/slt/slt_arctic_b0442_gen.wav"></audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td>VTN (932)</td>
+            <td>
+              <audio controls><source src="samples/vtn-tts-pt-n932/clb-slt/arctic_b0442.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/vtn-tts-pt-n932/bdl-slt/arctic_b0442.wav"></audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td>VTN (80)</td>
+            <td>
+              <audio controls><source src="samples/vtn-tts-pt-n80/clb-slt/arctic_b0442.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/vtn-tts-pt-n80/bdl-slt/arctic_b0442.wav"></audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Proposed (932)</td>
+            <td>
+              <audio controls><source src="samples/proposed-n932/clb-slt/clb_arctic_b0442.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/proposed-n932/bdl-slt/bdl_arctic_b0442.wav"></audio>
+            </td>
+          </tr>
+
+          <tr style="border-bottom: solid;">
+            <td>Proposed (80)</td>
+            <td>
+              <audio controls><source src="samples/proposed-n80/clb-slt/clb_arctic_b0442.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/proposed-n80/bdl-slt/bdl_arctic_b0442.wav"></audio>
+            </td>
+          </tr>
+
+        </table>
+
+
+      </div>
+
+  <br>
+  <div><a href="../../index.html">[Back to top]</a> </div>
+  </body>
+</html>
