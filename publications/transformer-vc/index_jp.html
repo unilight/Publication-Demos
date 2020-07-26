@@ -8,43 +8,43 @@
   <body>
     <article>
       <header>
-        <h1>Voice Transformer Network: Sequence-to Sequence Voice Conversion using Transformer with Text-to-Speech Pretraining</h1>
+        <h1>Voice Transformer Network：テキスト音声合成に基づく事前学習を用いた音声変換用Transformer</h1>
       </header>
     </article>
 
-    <div><b>Paper:</b> [<a href="https://arxiv.org/pdf/1912.06813.pdf">arXiv</a>] </div>
-    <div><b>Authors:</b> Wen-Chin Huang, Tomoki Hayashi, Yi-Chiao Wu, Hirokazu Kameoka, Tomoki Toda</div>
-    <div><b>Comments:</b> Accepted to Interspeech 2020. </div>
+    <div><b>論文リンク:</b> [<a href="https://arxiv.org/pdf/1912.06813.pdf">arXiv</a>] </div>
+    <div><b>著者:</b> Wen-Chin Huang, 林知樹, Yi-Chiao Wu, 亀岡弘和, 戸田智基</div>
+    <div><b>コメント:</b> Interspeech 2020に採用 </div>
 
     <br>
 
     <div style="width: 80%">
-      <b>Abstract:</b> We introduce a novel sequence-to-sequence (seq2seq) voice conversion (VC) model based on the Transformer architecture with text-to-speech (TTS) pre-training. Seq2seq VC models are attractive owing to their ability to convert prosody. While recurrent and convolutional based seq2seq models have been successfully applied to VC, the use of the Transformer network, which has shown promising results in various speech processing tasks, has not yet been investigated. Nonetheless, the data-hungry property and the mispronunciation in the converted speech make seq2seq models far from practical. To this end, we propose a simple yet effective pre-training technique to transfer knowledge from learned TTS models, which benefit from large scale, easily accessible TTS corpora. VC models initialized with such pre-trained model parameters are able to generate effective hidden representation for high-fidelity, highly intelligible converted speech. Experimental results show that such pre-training scheme can facilitate data efficient training, meanwhile outperform an RNN-based seq2seq VC model in terms of intelligibility, naturalness and similarity.
+      <b>あらまし:</b> We introduce a novel sequence-to-sequence (seq2seq) voice conversion (VC) model based on the Transformer architecture with text-to-speech (TTS) pre-training. Seq2seq VC models are attractive owing to their ability to convert prosody. While recurrent and convolutional based seq2seq models have been successfully applied to VC, the use of the Transformer network, which has shown promising results in various speech processing tasks, has not yet been investigated. Nonetheless, the data-hungry property and the mispronunciation in the converted speech make seq2seq models far from practical. To this end, we propose a simple yet effective pre-training technique to transfer knowledge from learned TTS models, which benefit from large scale, easily accessible TTS corpora. VC models initialized with such pre-trained model parameters are able to generate effective hidden representation for high-fidelity, highly intelligible converted speech. Experimental results show that such pre-training scheme can facilitate data efficient training, meanwhile outperform an RNN-based seq2seq VC model in terms of intelligibility, naturalness and similarity.
     </div>
 
     <div>
-      <h2>Proposed TTS pretraining</h2>
-      <img src="imgs/tts-pt-new.png" style="width: 40%;"/>
+      <h2>提案手法</h2>
+      <img src="imgs/tts-pt-ja.png" style="width: 30%;"/>
     </div>
 
     <div style="width: 80%">
-      <h2>Dataset</h2>
-        We conducted all our experiments on the <a href="http://www.festvox.org/cmu_arctic/">CMU Arctic database</a>.<br>
-        A male speaker (<i>bdl</i>) and a female speaker (<i>clb</i>) were chosen as source speakers, and a female speaker (<i>slt</i>) was chosen as the target speaker.
+      <h2>データ</h2>
+        本研究の実験は <a href="http://www.festvox.org/cmu_arctic/">CMU Arctic</a> というデータベースを用いる。<br>
+        男性入力話者一名 (<i>bdl</i>) と女性入力話者一名 (<i>clb</i>) と女性目標話者一名 (<i>slt</i>)。
     </div>
 
     <div style="width: 80%">
-      <h2>Models</h2>
+      <h2>モデル</h2>
       <ul>
-        <li><strong>Source, Target</strong>: Natural speech of the source and target speakers.</li>
-        <li><a href="https://espnet.github.io/espnet-tts-sample/egs/ljspeech/transformer.v1/"><strong>TTS adaptation</strong></a>: A Transformer-TTS model first pre-trained then adapted to the target speaker.</li>
-        <li><a href="http://www.kecl.ntt.co.jp/people/tanaka.ko/projects/atts2svc/index.html"><strong>ATTS2S</strong></a>: An RNN-based seq2seq VC model.</li>
-        <li><strong>VTN</strong>: The proposed Voice Transformer Network.</li>
+        <li><strong>Source, Target</strong>: 入力話者と目標話者の自然音声。</li>
+        <li><a href="https://espnet.github.io/espnet-tts-sample/egs/ljspeech/transformer.v1/"><strong>TTS adaptation</strong></a>: 事前訓練ーファインチューニングを行ったTransformerを用いるTTSモデル。</li>
+        <li><a href="http://www.kecl.ntt.co.jp/people/tanaka.ko/projects/atts2svc/index.html"><strong>ATTS2S</strong></a>: 事前訓練なしRNNを用いるVCモデル。</li>
+        <li><strong>VTN</strong>: 提案方のVoice Transformer Network。</li>
       </ul>
     </div>
 
     <div style="width: 80%">
-        <h2>Speech Samples</h2>
+        <h2>音声サンプル</h2>
 
         <h3 class="transcript">Transcription: There were stir and bustle, new faces, and fresh facts.</h3>
         <br>
@@ -239,6 +239,6 @@
       </div>
 
   <br>
-  <div><a href="index_jp.html">[Japanese]</a><a href="../../index.html">[Back to top]</a> </div>
+  <div><a href="index.html">[英語]</a><a href="../../index.html">[トップ]</a> </div>
   </body>
 </html>
