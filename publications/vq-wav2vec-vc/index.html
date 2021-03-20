@@ -1,25 +1,25 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Discretized Self-Supervised Speech Representations for Many-to-One Sequence-to-Sequence Voice Conversion</title>
+    <title>Any-to-One Sequence-to-Sequence Voice Conversion using Self-Supervised Discrete Speech Representations</title>
     <link rel="stylesheet" type="text/css" href="../../stylesheet.css"/>
     <link rel="shortcut icon" href="../../imgs/talk.png">
   </head>
   <body>
     <article>
       <header>
-        <h1>Discretized Self-Supervised Speech Representations for Many-to-One Sequence-to-Sequence Voice Conversion</h1>
+        <h1>Any-to-One Sequence-to-Sequence Voice Conversion using Self-Supervised Discrete Speech Representations</h1>
       </header>
     </article>
 
-    <div><b>Paper:</b> To be uploaded.</div>
-    <div><b>Authors:</b> To be revealed.</div>
-    <div><b>Comments:</b> Submitted to SLT2021. </div>
+    <div><b>Paper:</b> [<a href="https://arxiv.org/pdf/2010.12231">arXiv</a>] </div>
+    <div><b>Authors:</b> Wen-Chin Huang, Yi-Chiao Wu, Tomoki Hayashi, Tomoki Toda.</div>
+    <div><b>Comments:</b> Accepted to ICASSP 2021. </div>
 
     <br>
 
     <div style="width: 80%">
-      <b>Abstract:</b> We present a novel approach for many-to-one (M2O) voice conversion (VC) in a sequence-to-sequence (seq2seq) framework. M2O VC aims to convert any, including unknown, speakers to a fixed target speaker. We utilize vq-wav2vec, a discretized self-supervised speech representation that was learned from massive unlabeled data, which is assumed to be speaker-independent and well-corresponded to the underlying linguistic contents. Given a training dataset of the target speaker, we extract acoustic features and vq-wav2vec using a pretrained model to estimate a seq2seq mapping function from the latter to the former. With the help of a previously proposed pretraining method and a newly designed postprocessing technique, our model can be generalize to only 5 minutes of data, even outperforming the same model trained with parallel data. Notably, to our knowledge, this is the first work that adopts self-supervised speech representation in VC.
+      <b>Abstract:</b> We present a novel approach to any-to-one (A2O) voice conversion (VC) in a sequence-to-sequence (seq2seq) framework. A2O VC aims to convert any speaker, including those unseen during training, to a fixed target speaker. We utilize vq-wav2vec (VQW2V), a discretized self-supervised speech representation that was learned from massive unlabeled data, which is assumed to be speaker-independent and well corresponds to underlying linguistic contents. Given a training dataset of the target speaker, we extract VQW2V and acoustic features to estimate a seq2seq mapping function from the former to the latter. With the help of a pretraining method and a newly designed postprocessing technique, our model can be generalized to only 5 min of data, even outperforming the same model trained with parallel data.
     </div>
 
     <div>
