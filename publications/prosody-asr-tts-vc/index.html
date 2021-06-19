@@ -1,0 +1,115 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>On Prosody Modeling for ASR+TTS based Voice Conversion</title>
+    <link rel="stylesheet" type="text/css" href="../../stylesheet.css"/>
+    <link rel="shortcut icon" href="../../imgs/talk.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/wavesurfer.js"></script>
+  </head>
+  <body>
+    <article>
+      <header>
+        <h1>On Prosody Modeling for ASR+TTS based Voice Conversion</h1>
+      </header>
+    </article>
+
+    <div><b>Paper:</b> To be uploaded.</div>
+    <div><b>Authors:</b> Wen-Chin Huang, Tomoki Hayashi, Xinjian Li, Shinji Watanabe, Tomoki Toda</div>
+    <div><b>Comments:</b> Submitted to ASRU 2021. </div>
+
+    <br>
+
+    <div style="width: 80%">
+      <b>Abstract:</b> A promising approach to voice conversion (VC) is to first use an automatic speech recognition (ASR) model to transcribe the source speech into the underlying linguistic contents, which are then taken as input by a text-to-speech (TTS) system to generate the converted speech. Such a paradigm, referred to as ASR+TTS, overlooks the modeling of prosody, which plays an important role in speech naturalness and conversion similarity. While few have considered source prosody transfer (SPT) by transferring prosodic clues from the source speech, to address the speaker mismatch during training and conversion, in this work, we propose to directly predict such clues from the linguistic representation in a target speaker dependent manner. We evaluate both methods on the voice conversion challenge 2020 benchmark and considered different linguistic representations. Results demonstrate the effectiveness of the proposed TTP method in both objective and subjective evaluations.
+    </div>
+
+    <div>
+      <h2>Methods (Models)</h2>
+      <table>
+        <tr>
+          <th>Source prosody transfer (SPT)</th>
+          <th>Target text prediction (TTP)</th>
+        </tr>
+        <tr>
+          <td><img src="imgs/source-prosody-transfer-conversion.png" style="width: 500px"/></td>
+          <td><img src="imgs/target-text-prediction-conversion.png" style="width: 500px"/></td>
+        </tr>
+    </table>
+    </div>
+
+    <div style="width: 80%">
+      <h2>Dataset</h2>
+        We evaluated our proposed framework on the <b>Voice Conversion Challenge 2020 (VCC 2020) dataset</b>. <a href="https://www.isca-speech.org/archive/VCC_BC_2020/pdfs/VCC2020_paper_13.pdf">[Paper]</a> <a href="https://zenodo.org/record/4345689">[Datasets]</a>
+    </div>
+
+    <div style="width: 80%">
+      <h2>Representations</h2>
+        We compared the prosody modeling methods on three kinds of representation. <br>
+        <ul>
+          <li><b>Text:</b> This is one of the baseline in VCC2020, where the implementation can be found on <a href="https://github.com/espnet/espnet/tree/master/egs/vcc20">ESPnet</a>, an open-source end-to-end speech processing toolkit. </li>
+          <li><b>BNF:</b> Frame-level continuous bottleneck features from a supervised ASR model. </li>
+          <li><b>VQW2V:</b> Frame-level discrete features from a self-supervised <a href="https://arxiv.org/abs/1910.05453">vq-wav2vec</a> model. The checkpoint is provided by <a href="https://github.com/pytorch/fairseq/tree/master/examples/wav2vec">fairseq</a>. </li>
+        </ul>
+    </div>
+
+    <div style="width: 80%">
+        <h2>Speech Samples</h2>
+        
+        <label for="srcspk">Source speaker:</label>
+        <select id="srcspk" onchange=record(this)>
+            <option value=SEF1>SEF1</option>
+            <option value=SEF2>SEF2</option>
+            <option value=SEM1>SEM1</option>
+            <option value=SEM2>SEM2</option>
+        </select>
+        
+        <label for="trgspk">Target speaker:</label>
+        <select id="trgspk" onchange=record(this)>
+            <option value=TEF1>TEF1</option>
+            <option value=TEF2>TEF2</option>
+            <option value=TEM1>TEM1</option>
+            <option value=TEM2>TEM2</option>
+            <option value=TFF1>TFF1</option>
+            <option value=TFM1>TFM1</option>
+            <option value=TGF1>TGF1</option>
+            <option value=TGM1>TGM1</option>
+            <option value=TMF1>TMF1</option>
+            <option value=TMM1>TMM1</option>
+        </select>
+
+        <label for="number">Utterance number:</label>
+        <select id="number" onchange=record(this)>
+            <option value=1>30001</option>
+            <option value=2>30002</option>
+            <option value=3>30003</option>
+            <option value=4>30004</option>
+            <option value=5>30005</option>
+        </select>
+
+        <h3>Ground truth Samples</h3>
+        <div id="gt-div"></div>
+        <h3>Converted Samples</h3>
+        <div id="cvt-div"></div>
+        <div id="loading-status">Loading......</div>
+    </div>    
+
+    <script>
+      var wavesurfer_original_src;
+      var wavesurfer_original_tgt;
+      var wavesurfer_converted = [
+          [1, 2, 3],
+          [1, 2, 3],
+          [1, 2, 3],
+          [1, 2, 3],
+      ];
+    </script>
+
+    <script src="js/main.js"></script>
+
+
+
+  <br>
+  <div><a href="../../index.html">[Back to top]</a> </div>
+  </body>
+</html>
