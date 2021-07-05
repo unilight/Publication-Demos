@@ -1,0 +1,154 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Time Alignment using Lip Images for Frame-based Electrolaryngeal Voice Conversion</title>
+    <link rel="stylesheet" type="text/css" href="../../stylesheet.css"/>
+    <link rel="shortcut icon" href="../../imgs/talk.png">
+  </head>
+  <body>
+    <article>
+      <header>
+        <h1>Time Alignment using Lip Images for Frame-based Electrolaryngeal Voice Conversion</h1>
+      </header>
+    </article>
+
+    <div><b>Paper:</b> To be uploaded.</div>
+    <div><b>Authors:</b> Yi-Syuan Liou, Wen-Chin Huang, Ming-Chi Yen, Shu-Wei Tsai, Yu-Huai Peng, Tomoki Toda, Yu Tsao, Hsin-Min Wang</div>
+    <div><b>Comments:</b> Submitted to APSIPA 2021. </div>
+
+    <br>
+
+    <div style="width: 80%">
+      <b>Abstract:</b> Voice conversion (VC) is an effective approach to electrolaryngeal (EL) speech enhancement, a task that aims to improve the quality of the artificial voice from an electrolarynx device. In frame-based VC methods, time alignment needs to be performed prior to model training, and the dynamic time warping (DTW) algorithm is widely adopted to compute the best time alignment between each utterance pair. The validity is based on assumption that the same phonemes of the speakers have similar features and can be mapped by measuring a pre-defined distance between speech frames of the source and the target. However, the special characteristics of the EL speech can break the assumption, resulting in a sub-optimal DTW alignment. In this work, we propose to use lip images for time alignment, as we assume that the lip movements of laryngectomee remain normal compared to healthy people. We investigate two naive lip representations and distance metrics, and experimental results demonstrate that the proposed method can significantly outperform the audio-only alignment in terms of objective and subjective evaluations.
+    </div>
+
+    <div>
+      <h2>Proposed method</h2>
+      <img src="imgs/dtw-lip.png" style="width: 40%;"/>
+    </div>
+
+    <div style="width: 80%">
+      <h2>Dataset</h2>
+      Audio and video signals of a doctor was recorded.<br><br>
+      <table>
+        <tr>
+          <th>Sample EL video</th><th>Sample NL video</th>
+        </tr>
+        <tr>
+          <td>
+            <video width="320" height="240" controls>
+              <source src="samples/EL01_0001_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video>
+          </td>
+          <td>
+            <video width="320" height="240" controls>
+              <source src="samples/NL01_0001_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+            </video>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div style="width: 80%">
+      <h2>Alignment methods</h2>
+      <ul>
+        <li><strong>DTW-mcep</strong>: Alignment using MCD between mceps of the EL and NL speech.</li>
+        <li><strong>DTW-lip-raw</strong>: Alignment using MSE between raw lip images of the EL and NL speakers.</li>
+        <li><strong>DTW-lip-landmark</strong>: Alignment using Euclidean distance between lip landmarks of the EL and NL speakers.</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2>Subjective results</h2>
+      <img src="imgs/subjective-results.png" style="width: 40%;"/>
+    </div>
+
+    <div style="width: 80%">
+        <h2>Speech Samples</h2>
+
+        <!-- sample 1 -->
+        <h3 class="transcript">Transcription: 醫院大門口有很多花店 (yi yuan da men kou you hen duo hua dian)</h3>
+        <br>
+        <table>
+            <tr style="border-top: solid; border-bottom: solid;">
+              <th>EL speech</th><th>DTW-mcep</th><th>DTW-lip-raw</th><th>DTW-lip-landmark</th><th>NL speech</th>
+            </tr>
+            <tr style="border-top: solid; border-bottom: solid;">
+              <td>
+                <audio controls><source src="samples/el/EL01_0243_1.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/dtw_mcc/0243.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/pixelmse/0243.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/liplandmark/0243.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/nl/NL01_0243_1.wav"></audio>
+              </td>
+            </tr>
+        </table>
+
+        <!-- sample 2 -->
+        <h3 class="transcript">Transcription: 他的手錶慢了十五分鐘 (ta de shou biao man le shi wu fen zhong)</h3>
+        <br>
+        <table>
+            <tr style="border-top: solid; border-bottom: solid;">
+              <th>EL speech</th><th>DTW-mcep</th><th>DTW-lip-raw</th><th>DTW-lip-landmark</th><th>NL speech</th>
+            </tr>
+            <tr style="border-top: solid; border-bottom: solid;">
+              <td>
+                <audio controls><source src="samples/el/EL01_0253_1.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/dtw_mcc/0253.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/pixelmse/0253.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/liplandmark/0253.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/nl/NL01_0253_1.wav"></audio>
+              </td>
+            </tr>
+        </table>
+
+        <!-- sample 3 -->
+        <h3 class="transcript">Transcription: 周末我幫媽媽打掃房子 (zhou mo wo bang ma ma da sao fang zi)</h3>
+        <br>
+        <table>
+            <tr style="border-top: solid; border-bottom: solid;">
+              <th>EL speech</th><th>DTW-mcep</th><th>DTW-lip-raw</th><th>DTW-lip-landmark</th><th>NL speech</th>
+            </tr>
+            <tr style="border-top: solid; border-bottom: solid;">
+              <td>
+                <audio controls><source src="samples/el/EL01_0254_1.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/dtw_mcc/0254.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/pixelmse/0254.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/liplandmark/0254.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/nl/NL01_0254_1.wav"></audio>
+              </td>
+            </tr>
+        </table>
+
+      </div>
+
+  <br>
+  <div><a href="../../index.html">[Back to top]</a> </div>
+  </body>
+</html>
