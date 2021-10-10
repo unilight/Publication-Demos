@@ -1,0 +1,370 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>S3PRL-VC: Open-source Voice Conversion Framework with Self-supervised Speech Representations</title>
+    <link rel="stylesheet" type="text/css" href="../../stylesheet.css"/>
+    <link rel="shortcut icon" href="../../imgs/talk.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/wavesurfer.js"></script>
+  </head>
+  <body>
+    <article>
+      <header>
+        <h1>S3PRL-VC: Open-source Voice Conversion Framework with Self-supervised Speech Representations</h1>
+      </header>
+    </article>
+
+    <div><b>Paper:</b> To be uploaded. </div>
+    <div><b>Code:</b> <a href="https://github.com/s3prl/s3prl/tree/master/s3prl/downstream/a2o-vc-vcc2020">https://github.com/s3prl/s3prl/tree/master/s3prl/downstream/a2o-vc-vcc2020 </a> </div>
+    <div><b>Authors:</b> Wen-Chin Huang, Shu-Wen Yang, Tomoki Hayashi, Hung-Yi Lee, Shinji Watanabe, Tomoki Toda</div>
+    <div><b>Comments:</b> Submitted to ICASSP 2022. </div>
+
+    <br>
+
+    <div style="width: 80%">
+      <b>Abstract:</b> This paper introduces S3PRL-VC, an open-source voice conver- sion (VC) framework based on the S3PRL toolkit. In the context of recognition-synthesis VC, self-supervised speech representation (S3R) is valuable in its potential to replace the expensive supervised representation adopted by state-of-the-art VC systems. Moreover, we claim that VC is a good probing task for S3R analysis. In this work, we provide a series of in-depth analyses by benchmarking on the two tasks in VCC2020, namely intra-/cross-lingual any-to-one (A2O) VC, as well as an any-to-any (A2A) setting. We also provide comparisons between not only different S3Rs but also top systems in VCC2020 with supervised representations. Systematic objective and subjective evaluation were conducted, and we show that S3R is comparable with VCC2020 top systems in the A2O setting in terms of similarity, and achieves state-of-the-art in S3R-based A2A VC. We believe the extensive analysis, as well as the toolkit itself, con- tribute to not only the S3R community but also the VC community. The codebase is now open-sourced. 
+    </div>
+
+    <div>
+      <h2>Methods (Models)</h2>
+      <table>
+        <tr>
+          <th>Overview of recognition-synthesis voice conversion.</th>
+          <th>Models implemented.</th>
+        </tr>
+        <tr>
+          <td><img src="imgs/framework_v3.png" style="height: 300px"/></td>
+          <td><img src="imgs/all_models_dvec.png" style="height: 300px"/></td>
+        </tr>
+    </table>
+    </div>
+
+    <div style="width: 80%">
+      <h2>Dataset</h2>
+        We evaluated our proposed framework on the <b>Voice Conversion Challenge 2020 (VCC 2020) dataset</b>. <a href="https://www.isca-speech.org/archive/VCC_BC_2020/pdfs/VCC2020_paper_13.pdf">[Paper]</a> <a href="https://zenodo.org/record/4345689">[Datasets]</a>
+    </div>
+
+    <div style="width: 80%">
+        <h2>Any-to-one Speech Samples</h2>
+        
+        <label for="srcspk">Source speaker:</label>
+        <select id="srcspk" onchange=record(this)>
+            <option value=SEF1>SEF1</option>
+            <option value=SEF2>SEF2</option>
+            <option value=SEM1>SEM1</option>
+            <option value=SEM2>SEM2</option>
+        </select>
+        
+        <label for="trgspk">Target speaker:</label>
+        <select id="trgspk" onchange=record(this)>
+            <option value=TEF1>TEF1</option>
+            <option value=TEF2>TEF2</option>
+            <option value=TEM1>TEM1</option>
+            <option value=TEM2>TEM2</option>
+            <option value=TFF1>TFF1</option>
+            <option value=TFM1>TFM1</option>
+            <option value=TGF1>TGF1</option>
+            <option value=TGM1>TGM1</option>
+            <option value=TMF1>TMF1</option>
+            <option value=TMM1>TMM1</option>
+        </select>
+
+        <label for="number">Utterance number:</label>
+        <select id="number" onchange=record(this)>
+            <option value=1>30001</option>
+        </select>
+
+        <h3>Ground truth Samples</h3>
+        <div id="gt-div"></div>
+        <h3>Converted Samples</h3>
+        <div id="cvt-div"></div>
+        <div id="loading-status">Loading......</div>
+    </div>    
+
+    <script>
+      var wavesurfer_original_src;
+      var wavesurfer_original_tgt;
+      var wavesurfer_converted = [
+          [1, 2, 3],
+          [1, 2, 3],
+          [1, 2, 3],
+          [1, 2, 3],
+      ];
+    </script>
+
+    <script src="js/main.js"></script>
+
+    <div style="width: 80%">
+      <h2>Any-to-any Speech Samples</h2>
+
+      <table>
+      <tr style="border-top: solid; border-bottom: solid;">
+        <th>Source speaker</th><th>Source speech</th><th>Target speaker</th><th>Target speech</th><th>PPG (TIMIT)</th><th>vq-wav2vec</th><th>S2VC</th>
+      </tr>
+      <tr>
+        <td rowspan="4">SEF1</td>
+        <td rowspan="4">
+          <audio controls><source src="samples/source/SEF1/E30001.wav"></audio>
+        </td>
+        <td>TEF1</td>
+        <td>
+          <audio controls><source src="samples/target/TEF1/E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_timit_posteriorgram_TEF1_SEF1_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_vq_wav2vec_TEF1_SEF1_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/s2vc_TEF1_SEF1_E30001.wav"></audio>
+        </td>
+      </tr>
+      <tr>
+        <td>TEF2</td>
+        <td>
+          <audio controls><source src="samples/target/TEF2/E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_timit_posteriorgram_TEF2_SEF1_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_vq_wav2vec_TEF2_SEF1_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/s2vc_TEF2_SEF1_E30001.wav"></audio>
+        </td>
+      </tr>
+      <tr>
+        <td>TEM1</td>
+        <td>
+          <audio controls><source src="samples/target/TEM1/E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_timit_posteriorgram_TEM1_SEF1_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_vq_wav2vec_TEM1_SEF1_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/s2vc_TEM1_SEF1_E30001.wav"></audio>
+        </td>
+      </tr>
+      <tr style="border-bottom: solid;">
+        <td>TEM2</td>
+        <td>
+          <audio controls><source src="samples/target/TEM2/E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_timit_posteriorgram_TEM2_SEF1_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_vq_wav2vec_TEM2_SEF1_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/s2vc_TEM2_SEF1_E30001.wav"></audio>
+        </td>
+      </tr>
+
+      <tr>
+        <td rowspan="4">SEF2</td>
+        <td rowspan="4">
+          <audio controls><source src="samples/source/SEF2/E30001.wav"></audio>
+        </td>
+        <td>TEF1</td>
+        <td>
+          <audio controls><source src="samples/target/TEF1/E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_timit_posteriorgram_TEF1_SEF2_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_vq_wav2vec_TEF1_SEF2_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/s2vc_TEF1_SEF2_E30001.wav"></audio>
+        </td>
+      </tr>
+      <tr>
+        <td>TEF2</td>
+        <td>
+          <audio controls><source src="samples/target/TEF2/E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_timit_posteriorgram_TEF2_SEF2_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_vq_wav2vec_TEF2_SEF2_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/s2vc_TEF2_SEF2_E30001.wav"></audio>
+        </td>
+      </tr>
+      <tr>
+        <td>TEM1</td>
+        <td>
+          <audio controls><source src="samples/target/TEM1/E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_timit_posteriorgram_TEM1_SEF2_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_vq_wav2vec_TEM1_SEF2_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/s2vc_TEM1_SEF2_E30001.wav"></audio>
+        </td>
+      </tr>
+      <tr style="border-bottom: solid;">
+        <td>TEM2</td>
+        <td>
+          <audio controls><source src="samples/target/TEM2/E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_timit_posteriorgram_TEM2_SEF2_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_vq_wav2vec_TEM2_SEF2_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/s2vc_TEM2_SEF2_E30001.wav"></audio>
+        </td>
+      </tr>
+
+      <tr>
+        <td rowspan="4">SEM1</td>
+        <td rowspan="4">
+          <audio controls><source src="samples/source/SEM1/E30001.wav"></audio>
+        </td>
+        <td>TEF1</td>
+        <td>
+          <audio controls><source src="samples/target/TEF1/E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_timit_posteriorgram_TEF1_SEM1_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_vq_wav2vec_TEF1_SEM1_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/s2vc_TEF1_SEM1_E30001.wav"></audio>
+        </td>
+      </tr>
+      <tr>
+        <td>TEF2</td>
+        <td>
+          <audio controls><source src="samples/target/TEF2/E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_timit_posteriorgram_TEF2_SEM1_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_vq_wav2vec_TEF2_SEM1_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/s2vc_TEF2_SEM1_E30001.wav"></audio>
+        </td>
+      </tr>
+      <tr>
+        <td>TEM1</td>
+        <td>
+          <audio controls><source src="samples/target/TEM1/E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_timit_posteriorgram_TEM1_SEM1_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_vq_wav2vec_TEM1_SEM1_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/s2vc_TEM1_SEM1_E30001.wav"></audio>
+        </td>
+      </tr>
+      <tr style="border-bottom: solid;">
+        <td>TEM2</td>
+        <td>
+          <audio controls><source src="samples/target/TEM2/E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_timit_posteriorgram_TEM2_SEM1_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_vq_wav2vec_TEM2_SEM1_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/s2vc_TEM2_SEM1_E30001.wav"></audio>
+        </td>
+      </tr>
+
+      <tr>
+        <td rowspan="4">SEM2</td>
+        <td rowspan="4">
+          <audio controls><source src="samples/source/SEM2/E30001.wav"></audio>
+        </td>
+        <td>TEF1</td>
+        <td>
+          <audio controls><source src="samples/target/TEF1/E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_timit_posteriorgram_TEF1_SEM2_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_vq_wav2vec_TEF1_SEM2_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/s2vc_TEF1_SEM2_E30001.wav"></audio>
+        </td>
+      </tr>
+      <tr>
+        <td>TEF2</td>
+        <td>
+          <audio controls><source src="samples/target/TEF2/E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_timit_posteriorgram_TEF2_SEM2_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_vq_wav2vec_TEF2_SEM2_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/s2vc_TEF2_SEM2_E30001.wav"></audio>
+        </td>
+      </tr>
+      <tr>
+        <td>TEM1</td>
+        <td>
+          <audio controls><source src="samples/target/TEM1/E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_timit_posteriorgram_TEM1_SEM2_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_vq_wav2vec_TEM1_SEM2_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/s2vc_TEM1_SEM2_E30001.wav"></audio>
+        </td>
+      </tr>
+      <tr style="border-bottom: solid;">
+        <td>TEM2</td>
+        <td>
+          <audio controls><source src="samples/target/TEM2/E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_timit_posteriorgram_TEM2_SEM2_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/a2a-taco2-ar_vq_wav2vec_TEM2_SEM2_E30001.wav"></audio>
+        </td>
+        <td>
+          <audio controls><source src="samples/vc/s2vc_TEM2_SEM2_E30001.wav"></audio>
+        </td>
+      </tr>
+
+      </table>
+    </div>
+
+  <br>
+  <div><a href="../../index.html">[Back to top]</a> </div>
+  </body>
+</html>

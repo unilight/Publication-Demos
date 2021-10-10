@@ -1,0 +1,308 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Towards Identity Preserving Normal to Dysarthric Voice Conversion</title>
+    <link rel="stylesheet" type="text/css" href="../../stylesheet.css"/>
+    <link rel="shortcut icon" href="../../imgs/talk.png">
+  </head>
+  <body>
+    <article>
+      <header>
+        <h1>Towards Identity Preserving Normal to Dysarthric Voice Conversion</h1>
+      </header>
+    </article>
+
+    <div><b>Paper:</b> To be uploaded. </div>
+    <div><b>Authors:</b> Wen-Chin Huang & Bence Mark Halpern (equal contribution), Lester Phillip Violeta, Odette Scharenborg, Tomoki Toda</div>
+    <div><b>Comments:</b> Submitted to ICASSP 2022. </div>
+
+    <br>
+
+    <div style="width: 80%">
+      <b>Abstract:</b> We present a voice conversion framework that converts normal speech into dysarthric speech while preserving the speaker identity. Such a framework is essential for (1) clinical decision making processes and alleviation of patient stress, (2) data augmentation for dysarthric speech recognition. This is an especially challenging task since the converted samples should capture the severity of dysarthric speech while being highly natural and possessing the speaker identity of the normal speaker. To this end, we adopted a two-stage framework, which consists of a sequence-to-sequence model and a nonparallel frame-wise model. Objective and subjective evaluations were conducted on the UASpeech dataset, and results showed that the method was able to yield reasonable naturalness and capture severity aspects of the pathological speech. On the other hand, the similarity to the normal source speaker's voice was limited and requires further improvements.
+    </div>
+
+    <div>
+      <h2>Proposed method</h2>
+      <img src="imgs/proposed.png" style="width: 50%;"/>
+    </div>
+
+    <div style="width: 80%">
+      <h2>Dataset</h2>
+        We used the <b><a href="http://www.isle.illinois.edu/sst/data/UASpeech/">UASpeech</a></b> dataset. We used data of all 13 control speakers as the source speakers, and 6 dysarthric speakers. We chose 2 dysarthric speakers from each intelligibility group (high: M08, M10; mid: M05, M11; low: M04, M12) as test speakers.
+    </div>
+
+    <div style="width: 80%">
+        <h2>Speech Samples</h2>
+        <b>Note</b>: we only show 1 dysarthric speaker from each intelligibility group in the following demo.
+
+        <h3 class="transcript">Transcription: "Command"</h3>
+        <br>
+        <table>
+            <tr style="border-top: solid; border-bottom: solid;">
+              <th>Control Speaker</th><th>Input speech</th><th>Dysarthric speaker (intelligibility level)</th><th>Seq2seq (VTN)</th><th>Seq2seq (VTN) + Nonparallel frame-wise model (VAE)</th><th>Dysarthric speaker reference speech</th>
+            </tr>
+            <tr>
+              <td rowspan="3">CF02</td>
+              <td rowspan="3">
+                <audio controls><source src="samples/control/CF02_B2_C1_M5.wav"></audio>
+              </td>
+              <td>M04 (low)</td>
+              <td>
+                <audio controls><source src="samples/VTN/M04/CF02_B2_C1_M5.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/VTN+VAE/M04/CF02_B2_C1_M5_org-CF02_cv-CF02.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/dysarthric/M04_B2_C1_M5.wav"></audio>
+              </td>
+            </tr>
+            <tr>
+              <td>M05 (mid)</td>
+              <td>
+                <audio controls><source src="samples/VTN/M05/CF02_B2_C1_M5.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/VTN+VAE/M05/CF02_B2_C1_M5_org-CF02_cv-CF02.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/dysarthric/M05_B2_C1_M5.wav"></audio>
+              </td>
+            </tr>
+            <tr>
+              <td>M08 (high)</td>
+              <td>
+                <audio controls><source src="samples/VTN/M08/CF02_B2_C1_M5.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/VTN+VAE/M08/CF02_B2_C1_M5_org-CF02_cv-CF02.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/dysarthric/M08_B2_C1_M5.wav"></audio>
+              </td>
+            </tr>
+            <tr>
+              <td rowspan="3">CM08</td>
+              <td rowspan="3">
+                <audio controls><source src="samples/control/CM08_B2_C1_M5.wav"></audio>
+              </td>
+              <td>M04 (low)</td>
+              <td>
+                <audio controls><source src="samples/VTN/M04/CM08_B2_C1_M5.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/VTN+VAE/M04/CM08_B2_C1_M5_org-CM08_cv-CM08.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/dysarthric/M04_B2_C1_M5.wav"></audio>
+              </td>
+            </tr>
+            <tr>
+              <td>M05 (mid)</td>
+              <td>
+                <audio controls><source src="samples/VTN/M05/CM08_B2_C1_M5.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/VTN+VAE/M05/CM08_B2_C1_M5_org-CM08_cv-CM08.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/dysarthric/M05_B2_C1_M5.wav"></audio>
+              </td>
+            </tr>
+            <tr style="border-bottom: solid;">
+              <td>M08 (high)</td>
+              <td>
+                <audio controls><source src="samples/VTN/M08/CM08_B2_C1_M5.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/VTN+VAE/M08/CM08_B2_C1_M5_org-CM08_cv-CM08.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/dysarthric/M08_B2_C1_M5.wav"></audio>
+              </td>
+            </tr>
+        </table>
+
+        <h3 class="transcript">Transcription: "Backspace"</h3>
+        <br>
+        <table>
+            <tr style="border-top: solid; border-bottom: solid;">
+              <th>Control Speaker</th><th>Input speech</th><th>Dysarthric speaker (intelligibility level)</th><th>Seq2seq (VTN)</th><th>Seq2seq (VTN) + Nonparallel frame-wise model (VAE)</th><th>Dysarthric speaker reference speech</th>
+            </tr>
+            <tr>
+              <td rowspan="3">CF02</td>
+              <td rowspan="3">
+                <audio controls><source src="samples/control/CF02_B2_C2_M5.wav"></audio>
+              </td>
+              <td>M04 (low)</td>
+              <td>
+                <audio controls><source src="samples/VTN/M04/CF02_B2_C2_M5.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/VTN+VAE/M04/CF02_B2_C2_M5_org-CF02_cv-CF02.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/dysarthric/M04_B2_C2_M5.wav"></audio>
+              </td>
+            </tr>
+            <tr>
+              <td>M05 (mid)</td>
+              <td>
+                <audio controls><source src="samples/VTN/M05/CF02_B2_C2_M5.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/VTN+VAE/M05/CF02_B2_C2_M5_org-CF02_cv-CF02.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/dysarthric/M05_B2_C2_M5.wav"></audio>
+              </td>
+            </tr>
+            <tr>
+              <td>M08 (high)</td>
+              <td>
+                <audio controls><source src="samples/VTN/M08/CF02_B2_C2_M5.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/VTN+VAE/M08/CF02_B2_C2_M5_org-CF02_cv-CF02.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/dysarthric/M08_B2_C2_M5.wav"></audio>
+              </td>
+            </tr>
+            <tr>
+              <td rowspan="3">CM08</td>
+              <td rowspan="3">
+                <audio controls><source src="samples/control/CM08_B2_C2_M5.wav"></audio>
+              </td>
+              <td>M04 (low)</td>
+              <td>
+                <audio controls><source src="samples/VTN/M04/CM08_B2_C2_M5.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/VTN+VAE/M04/CM08_B2_C2_M5_org-CM08_cv-CM08.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/dysarthric/M04_B2_C2_M5.wav"></audio>
+              </td>
+            </tr>
+            <tr>
+              <td>M05 (mid)</td>
+              <td>
+                <audio controls><source src="samples/VTN/M05/CM08_B2_C2_M5.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/VTN+VAE/M05/CM08_B2_C2_M5_org-CM08_cv-CM08.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/dysarthric/M05_B2_C2_M5.wav"></audio>
+              </td>
+            </tr>
+            <tr style="border-bottom: solid;">
+              <td>M08 (high)</td>
+              <td>
+                <audio controls><source src="samples/VTN/M08/CM08_B2_C2_M5.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/VTN+VAE/M08/CM08_B2_C2_M5_org-CM08_cv-CM08.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/dysarthric/M08_B2_C2_M5.wav"></audio>
+              </td>
+            </tr>
+        </table>
+
+        <h3 class="transcript">Transcription: "Delete"</h3>
+        <br>
+        <table>
+            <tr style="border-top: solid; border-bottom: solid;">
+              <th>Control Speaker</th><th>Input speech</th><th>Dysarthric speaker (intelligibility level)</th><th>Seq2seq (VTN)</th><th>Seq2seq (VTN) + Nonparallel frame-wise model (VAE)</th><th>Dysarthric speaker reference speech</th>
+            </tr>
+            <tr>
+              <td rowspan="3">CF02</td>
+              <td rowspan="3">
+                <audio controls><source src="samples/control/CF02_B2_C3_M5.wav"></audio>
+              </td>
+              <td>M04 (low)</td>
+              <td>
+                <audio controls><source src="samples/VTN/M04/CF02_B2_C3_M5.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/VTN+VAE/M04/CF02_B2_C3_M5_org-CF02_cv-CF02.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/dysarthric/M04_B2_C3_M5.wav"></audio>
+              </td>
+            </tr>
+            <tr>
+              <td>M05 (mid)</td>
+              <td>
+                <audio controls><source src="samples/VTN/M05/CF02_B2_C3_M5.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/VTN+VAE/M05/CF02_B2_C3_M5_org-CF02_cv-CF02.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/dysarthric/M05_B2_C3_M5.wav"></audio>
+              </td>
+            </tr>
+            <tr>
+              <td>M08 (high)</td>
+              <td>
+                <audio controls><source src="samples/VTN/M08/CF02_B2_C3_M5.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/VTN+VAE/M08/CF02_B2_C3_M5_org-CF02_cv-CF02.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/dysarthric/M08_B2_C3_M5.wav"></audio>
+              </td>
+            </tr>
+            <tr>
+              <td rowspan="3">CM08</td>
+              <td rowspan="3">
+                <audio controls><source src="samples/control/CM08_B2_C3_M5.wav"></audio>
+              </td>
+              <td>M04 (low)</td>
+              <td>
+                <audio controls><source src="samples/VTN/M04/CM08_B2_C3_M5.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/VTN+VAE/M04/CM08_B2_C3_M5_org-CM08_cv-CM08.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/dysarthric/M04_B2_C3_M5.wav"></audio>
+              </td>
+            </tr>
+            <tr>
+              <td>M05 (mid)</td>
+              <td>
+                <audio controls><source src="samples/VTN/M05/CM08_B2_C3_M5.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/VTN+VAE/M05/CM08_B2_C3_M5_org-CM08_cv-CM08.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/dysarthric/M05_B2_C3_M5.wav"></audio>
+              </td>
+            </tr>
+            <tr style="border-bottom: solid;">
+              <td>M08 (high)</td>
+              <td>
+                <audio controls><source src="samples/VTN/M08/CM08_B2_C3_M5.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/VTN+VAE/M08/CM08_B2_C3_M5_org-CM08_cv-CM08.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/dysarthric/M08_B2_C3_M5.wav"></audio>
+              </td>
+            </tr>
+        </table>
+
+      </div>
+
+  <br>
+  <div><a href="../../index.html">[Back to top]</a> </div>
+  </body>
+</html>
