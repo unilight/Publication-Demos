@@ -1,0 +1,174 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Evaluating Methods for Ground-Truth-Free Foreign Accent Conversion</title>
+    <link rel="stylesheet" type="text/css" href="../../stylesheet.css"/>
+    <!-- <link rel="shortcut icon" href="../../imgs/talk.png"> -->
+  </head>
+  <body>
+    <article>
+      <header>
+        <h1>Evaluating Methods for Ground-Truth-Free Foreign Accent Conversion</h1>
+      </header>
+    </article>
+
+    <div><b>Paper:</b> To be uploaded. </div>
+    <div><b>Code:</b> <a href="https://github.com/unilight/seq2seq-vc">https://github.com/unilight/seq2seq-vc</a> </div>
+    <div><b>Authors:</b> Wen-Chin Huang, Tomoki Toda</div>
+    <div><b>Comments:</b> Submitted to APSIPA ASC 2023. </div>
+
+    <br>
+
+    <div style="width: 80%">
+      <b>Abstract:</b> Foreign accent conversion (FAC) is a special application of voice conversion (VC) which aims to convert the accented speech of a nonnative speaker to a native-sounding speech with the same speaker identity. FAC is difficult since the native speech from the desired non-native speaker to be used as the training target is impossible to collect. In this work, we evaluate three recently proposed methods for ground-truth-free FAC, where all of them aim to harness the power of sequence-to-sequence (seq2seq) and non-parallel VC models to properly convert the accent and control the speaker identity. We try to explain the effectiveness of these methods with the training input and output of the seq2seq model and examined the design choice of the non-parallel VC model. Finally, we show that intelligibility measures such as word error rates do not correlate well with subjective accentedness. These findings help us understand current approaches and identify the limitations and unsolved problems.
+    </div>
+
+    <div>
+      <h2>Proposed method</h2>
+      <img src="imgs/method.png" style="width: 75%;"/>
+    </div>
+
+    <div style="width: 80%">
+      <h2>Dataset</h2>
+        We conducted all our experiments on the <a href="http://www.festvox.org/cmu_arctic/">CMU Arctic database</a> and the <a href="https://psi.engr.tamu.edu/l2-arctic-corpus/">L2-Arctic database</a>.<br>
+        A  male non-native source speaker (<i>THXC</i>) and a male native reference speaker (<i>bdl</i>) were chosen.
+    </div>
+
+    <div style="width: 80%">
+        <h2>Speech Samples</h2>
+
+        <h3 class="transcript">Transcription: What an excited whispering and conferring took place.</h3>
+        <br>
+        <table>
+            <tr style="border-top: solid; border-bottom: solid;">
+              <th>Latent feature</th><th>Source</th><th>Cascade</th><th>STG</th><th>LSC</th><th>Reference</th>
+            </tr>
+
+            <tr>
+              <td>vq-wav2vec</td>
+              <td rowspan="2">
+                <audio controls><source src="samples/source/arctic_b0490.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/cascade-vqw2v/arctic_b0490.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/stg-vqw2v/arctic_b0490.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/lsc-vqw2v/arctic_b0490.wav"></audio>
+              </td>
+              <td rowspan="2">
+                <audio controls><source src="samples/target/arctic_b0490.wav"></audio>
+              </td>
+            </tr>
+
+            <tr style="border-bottom: solid;">
+              <td>PPG</td>
+              <td>
+                <audio controls><source src="samples/cascade-ppg/arctic_b0490.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/stg-ppg/arctic_b0490.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/lsc-ppg/arctic_b0490.wav"></audio>
+              </td>
+            </tr>
+
+        </table>
+
+        <!-- ========= -->
+
+        <h3 class="transcript">Transcription: Thus he turned the tenets and jargon of psychology back on me..</h3>
+        <br>
+        <table>
+            <tr style="border-top: solid; border-bottom: solid;">
+              <th>Latent feature</th><th>Source</th><th>Cascade</th><th>STG</th><th>LSC</th><th>Reference</th>
+            </tr>
+
+            <tr>
+              <td>vq-wav2vec</td>
+              <td rowspan="2">
+                <audio controls><source src="samples/source/arctic_b0492.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/cascade-vqw2v/arctic_b0492.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/stg-vqw2v/arctic_b0492.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/lsc-vqw2v/arctic_b0492.wav"></audio>
+              </td>
+              <td rowspan="2">
+                <audio controls><source src="samples/target/arctic_b0492.wav"></audio>
+              </td>
+            </tr>
+
+            <tr style="border-bottom: solid;">
+              <td>PPG</td>
+              <td>
+                <audio controls><source src="samples/cascade-ppg/arctic_b0492.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/stg-ppg/arctic_b0492.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/lsc-ppg/arctic_b0492.wav"></audio>
+              </td>
+            </tr>
+
+        </table>
+
+        <!-- ========= -->
+
+        <h3 class="transcript">Transcription: You were making them talk shop, Ruth charged him..</h3>
+        <br>
+        <table>
+            <tr style="border-top: solid; border-bottom: solid;">
+              <th>Latent feature</th><th>Source</th><th>Cascade</th><th>STG</th><th>LSC</th><th>Reference</th>
+            </tr>
+
+            <tr>
+              <td>vq-wav2vec</td>
+              <td rowspan="2">
+                <audio controls><source src="samples/source/arctic_b0539.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/cascade-vqw2v/arctic_b0539.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/stg-vqw2v/arctic_b0539.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/lsc-vqw2v/arctic_b0539.wav"></audio>
+              </td>
+              <td rowspan="2">
+                <audio controls><source src="samples/target/arctic_b0539.wav"></audio>
+              </td>
+            </tr>
+
+            <tr style="border-bottom: solid;">
+              <td>PPG</td>
+              <td>
+                <audio controls><source src="samples/cascade-ppg/arctic_b0539.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/stg-ppg/arctic_b0539.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/lsc-ppg/arctic_b0539.wav"></audio>
+              </td>
+            </tr>
+
+        </table>
+
+
+
+      </div>
+
+  <br>
+  <!-- <div><a href="../../index.html">[Back to top]</a> </div> -->
+  </body>
+</html>
