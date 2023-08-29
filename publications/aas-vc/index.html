@@ -1,0 +1,520 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>AAS-VC: On the Generalization Ability of Automatic Alignment Search based Non-autoregressive Sequence-to-sequence Voice Conversion</title>
+    <link rel="stylesheet" type="text/css" href="../../stylesheet.css"/>
+    <link rel="shortcut icon" href="../../imgs/talk.png">
+  </head>
+  <body>
+    <article>
+      <header>
+        <h1>AAS-VC: On the Generalization Ability of Automatic Alignment Search based Non-autoregressive Sequence-to-sequence Voice Conversion</h1>
+      </header>
+    </article>
+
+    <div><b>Paper:</b> To be uploaded </div>
+    <div><b>Authors:</b> Wen-Chin Huang, Kazuhiro Kobayashi, Tomoki Toda.</div>
+    <div><b>Comments:</b> Submitted to ICASSP 2024. </div>
+
+    <br>
+
+    <div style="width: 80%">
+      <b>Abstract:</b> Non-autoregressive (NAR) sequence-to-seqeunce (seq2seq) models for voice conversion (VC) is attractive in its ability to effectively model the temporal structure while enjoying boosted intelligibility and fast inference thanks to NAR modeling. However, the dependency of NAR seq2seq VC models on ground truth durations extracted from an AR model greatly limits its generalization ability to smaller training datasets. In this work, we first show the existence of the above-mentioned problem by varying the training data size. Then, we present AAS-VC, a non-AR seq2seq VC model based on automatic alignment search (AAS), which serves as a proper inductive bias to provide the required generalization ability for low resource settings. Experimental results show that AAS-VC can generalize well to a training dataset of only 5 minutes. We also conducted ablation studies to justify several model design choices. The audio samples and implementation are available online.
+    </div>
+
+    <div>
+      <h2>Proposed method</h2>
+      <img src="imgs/overview.png" style="width: 30%;"/>
+    </div>
+
+    <div style="width: 80%">
+      <h2>Dataset</h2>
+        We conducted all our experiments on the <a href="http://www.festvox.org/cmu_arctic/">CMU Arctic database</a>.<br>
+        A male speaker (<i>bdl</i>) and a female speaker (<i>clb</i>) were chosen as source speakers, and a male speaker (<i>rms</i>) and a female speaker (<i>slt</i>) were chosen as the target speakers.
+    </div>
+
+    <div style="width: 80%">
+      <h2>Compared systems (number in parentheses </h2>
+      <ul>
+        <li><strong>Source, Target</strong>: Natural speech of the source and target speakers.</li>
+        <li><strong>Analysis-Synthesis</strong></a>: Analysis-synthesis samples from the Parallel WaveGAN vocoder.</li>
+        <li><a href="https://kan-bayashi.github.io/NonARSeq2SeqVC/"><strong>FS2-VC</strong></a>: FastSpeech2 based non-AR seq2seq VC model, with ground truth durations extracted from a Voice Transformer Network (VTN, a.k.a. Transformer-VC), an AR seq2seq VC model.<br>To simulate FS2-VC with different ground truth duration quality, we use two variants:<br>
+          <ul>
+            <li>FS2-VC (No PT): FS2-VC with ground truth duration extracted from a VTN <b>trained from scratch</b>.</li>
+            <li>FS2-VC (PT): FS2-VC with ground truth duration extracted from a VTN <b>with TTS-style pre-training on LJSpeech (24 hrs)</b>.</li>
+          </ul>
+        </li>
+        <li><strong>AAS-VC</strong>: The proposed non-AR seq2seq VC model with automatic alignment search.</li>
+      </ul>
+    </div>
+
+    <div style="width: 80%">
+        <h2>Speech Samples</h2>
+
+        <h3 class="transcript">Transcription: And there was Ethel Baird, whom also you must remember.</h3>
+        <br>
+        <table>
+            <tr style="border-top: solid; border-bottom: solid;">
+              <th>Model</th><th>Number of training utterances (duration)</th><th>clb(F)-slt(F)</th><th>bdl(M)-slt(F)</th><th>clb(F)-rms(M)</th><th>bdl(M)-rms(M)</th>
+            </tr>
+
+            <tr>
+              <td>Source</td>
+              <td>-</td>
+              <td>
+                <audio controls><source src="samples/GT-clb-clb-arctic_b0441.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/GT-bdl-bdl-arctic_b0441.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/GT-clb-clb-arctic_b0441.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/GT-bdl-bdl-arctic_b0441.wav"></audio>
+              </td>
+            </tr>
+
+          <tr>
+            <td>Target</td>
+            <td>-</td>
+            <td colspan="2">
+              <audio controls><source src="samples/GT-slt-slt-arctic_b0441.wav"></audio>
+            </td>
+            <td colspan="2">
+              <audio controls><source src="samples/GT-rms-rms-arctic_b0441.wav"></audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Analysis-Synthesis</td>
+            <td>-</td>
+            <td colspan="2">
+              <audio controls><source src="samples/ANASYN-slt-slt-arctic_b0441.wav"></audio>
+            </td>
+            <td colspan="2">
+              <audio controls><source src="samples/ANASYN-rms-rms-arctic_b0441.wav"></audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td>FS2-VC (No PT)</td>
+            <td>932</td>
+            <td>
+              <audio controls><source src="samples/FS2_nopt_alignment-n932-clb-slt-arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/FS2_nopt_alignment-n932-bdl-slt-arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/FS2_nopt_alignment-n932-clb-rms-arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/FS2_nopt_alignment-n932-bdl-rms-arctic_b0441.wav"></audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td>FS2-VC (PT)</td>
+            <td>932</td>
+            <td>
+              <audio controls><source src="samples/FS2_pt_alignment-n932-clb-slt-arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/FS2_pt_alignment-n932-bdl-slt-arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/FS2_pt_alignment-n932-clb-rms-arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/FS2_pt_alignment-n932-bdl-rms-arctic_b0441.wav"></audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td>AAS-VC</td>
+            <td>932</td>
+            <td>
+              <audio controls><source src="samples/AAS-n932-clb-slt-arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/AAS-n932-bdl-slt-arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/AAS-n932-clb-rms-arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/AAS-n932-bdl-rms-arctic_b0441.wav"></audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td>FS2-VC (No PT)</td>
+            <td>80</td>
+            <td>
+              <audio controls><source src="samples/FS2_nopt_alignment-n80-clb-slt-arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/FS2_nopt_alignment-n80-bdl-slt-arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/FS2_nopt_alignment-n80-clb-rms-arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/FS2_nopt_alignment-n80-bdl-rms-arctic_b0441.wav"></audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td>FS2-VC (PT)</td>
+            <td>80</td>
+            <td>
+              <audio controls><source src="samples/FS2_pt_alignment-n80-clb-slt-arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/FS2_pt_alignment-n80-bdl-slt-arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/FS2_pt_alignment-n80-clb-rms-arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/FS2_pt_alignment-n80-bdl-rms-arctic_b0441.wav"></audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td>AAS-VC</td>
+            <td>80</td>
+            <td>
+              <audio controls><source src="samples/AAS-n80-clb-slt-arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/AAS-n80-bdl-slt-arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/AAS-n80-clb-rms-arctic_b0441.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/AAS-n80-bdl-rms-arctic_b0441.wav"></audio>
+            </td>
+          </tr>
+
+        </table>
+
+        <!--  -->
+        <!--  -->
+        <!--  -->
+
+        <h3 class="transcript">Transcription: It was introduced by Representative Dick of Ohio.</h3>
+        <br>
+        <table>
+          <tr style="border-top: solid; border-bottom: solid;">
+            <th>Model</th><th>Number of training utterances (duration)</th><th>clb(F)-slt(F)</th><th>bdl(M)-slt(F)</th><th>clb(F)-rms(M)</th><th>bdl(M)-rms(M)</th>
+          </tr>
+
+          <tr>
+            <td>Source</td>
+            <td>-</td>
+            <td>
+              <audio controls><source src="samples/GT-clb-clb-arctic_b0468.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/GT-bdl-bdl-arctic_b0468.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/GT-clb-clb-arctic_b0468.wav"></audio>
+            </td>
+            <td>
+              <audio controls><source src="samples/GT-bdl-bdl-arctic_b0468.wav"></audio>
+            </td>
+          </tr>
+
+        <tr>
+          <td>Target</td>
+          <td>-</td>
+          <td colspan="2">
+            <audio controls><source src="samples/GT-slt-slt-arctic_b0468.wav"></audio>
+          </td>
+          <td colspan="2">
+            <audio controls><source src="samples/GT-rms-rms-arctic_b0468.wav"></audio>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Analysis-Synthesis</td>
+          <td>-</td>
+          <td colspan="2">
+            <audio controls><source src="samples/ANASYN-slt-slt-arctic_b0468.wav"></audio>
+          </td>
+          <td colspan="2">
+            <audio controls><source src="samples/ANASYN-rms-rms-arctic_b0468.wav"></audio>
+          </td>
+        </tr>
+
+        <tr>
+          <td>FS2-VC (No PT)</td>
+          <td>932</td>
+          <td>
+            <audio controls><source src="samples/FS2_nopt_alignment-n932-clb-slt-arctic_b0468.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/FS2_nopt_alignment-n932-bdl-slt-arctic_b0468.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/FS2_nopt_alignment-n932-clb-rms-arctic_b0468.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/FS2_nopt_alignment-n932-bdl-rms-arctic_b0468.wav"></audio>
+          </td>
+        </tr>
+
+        <tr>
+          <td>FS2-VC (PT)</td>
+          <td>932</td>
+          <td>
+            <audio controls><source src="samples/FS2_pt_alignment-n932-clb-slt-arctic_b0468.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/FS2_pt_alignment-n932-bdl-slt-arctic_b0468.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/FS2_pt_alignment-n932-clb-rms-arctic_b0468.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/FS2_pt_alignment-n932-bdl-rms-arctic_b0468.wav"></audio>
+          </td>
+        </tr>
+
+        <tr>
+          <td>AAS-VC</td>
+          <td>932</td>
+          <td>
+            <audio controls><source src="samples/AAS-n932-clb-slt-arctic_b0468.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/AAS-n932-bdl-slt-arctic_b0468.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/AAS-n932-clb-rms-arctic_b0468.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/AAS-n932-bdl-rms-arctic_b0468.wav"></audio>
+          </td>
+        </tr>
+
+        <tr>
+          <td>FS2-VC (No PT)</td>
+          <td>80</td>
+          <td>
+            <audio controls><source src="samples/FS2_nopt_alignment-n80-clb-slt-arctic_b0468.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/FS2_nopt_alignment-n80-bdl-slt-arctic_b0468.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/FS2_nopt_alignment-n80-clb-rms-arctic_b0468.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/FS2_nopt_alignment-n80-bdl-rms-arctic_b0468.wav"></audio>
+          </td>
+        </tr>
+
+        <tr>
+          <td>FS2-VC (PT)</td>
+          <td>80</td>
+          <td>
+            <audio controls><source src="samples/FS2_pt_alignment-n80-clb-slt-arctic_b0468.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/FS2_pt_alignment-n80-bdl-slt-arctic_b0468.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/FS2_pt_alignment-n80-clb-rms-arctic_b0468.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/FS2_pt_alignment-n80-bdl-rms-arctic_b0468.wav"></audio>
+          </td>
+        </tr>
+
+        <tr>
+          <td>AAS-VC</td>
+          <td>80</td>
+          <td>
+            <audio controls><source src="samples/AAS-n80-clb-slt-arctic_b0468.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/AAS-n80-bdl-slt-arctic_b0468.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/AAS-n80-clb-rms-arctic_b0468.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/AAS-n80-bdl-rms-arctic_b0468.wav"></audio>
+          </td>
+        </tr>
+
+      </table>
+
+      <!--  -->
+      <!--  -->
+      <!--  -->
+
+      <h3 class="transcript">Transcription: But why continue the tirade, for tirade it was.</h3>
+      <br>
+      <table>
+        <tr style="border-top: solid; border-bottom: solid;">
+          <th>Model</th><th>Number of training utterances (duration)</th><th>clb(F)-slt(F)</th><th>bdl(M)-slt(F)</th><th>clb(F)-rms(M)</th><th>bdl(M)-rms(M)</th>
+        </tr>
+
+        <tr>
+          <td>Source</td>
+          <td>-</td>
+          <td>
+            <audio controls><source src="samples/GT-clb-clb-arctic_b0486.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/GT-bdl-bdl-arctic_b0486.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/GT-clb-clb-arctic_b0486.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/GT-bdl-bdl-arctic_b0486.wav"></audio>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Target</td>
+          <td>-</td>
+          <td colspan="2">
+            <audio controls><source src="samples/GT-slt-slt-arctic_b0486.wav"></audio>
+          </td>
+          <td colspan="2">
+            <audio controls><source src="samples/GT-rms-rms-arctic_b0486.wav"></audio>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Analysis-Synthesis</td>
+          <td>-</td>
+          <td colspan="2">
+            <audio controls><source src="samples/ANASYN-slt-slt-arctic_b0486.wav"></audio>
+          </td>
+          <td colspan="2">
+            <audio controls><source src="samples/ANASYN-rms-rms-arctic_b0486.wav"></audio>
+          </td>
+        </tr>
+
+        <tr>
+          <td>FS2-VC (No PT)</td>
+          <td>932</td>
+          <td>
+            <audio controls><source src="samples/FS2_nopt_alignment-n932-clb-slt-arctic_b0486.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/FS2_nopt_alignment-n932-bdl-slt-arctic_b0486.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/FS2_nopt_alignment-n932-clb-rms-arctic_b0486.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/FS2_nopt_alignment-n932-bdl-rms-arctic_b0486.wav"></audio>
+          </td>
+        </tr>
+
+        <tr>
+          <td>FS2-VC (PT)</td>
+          <td>932</td>
+          <td>
+            <audio controls><source src="samples/FS2_pt_alignment-n932-clb-slt-arctic_b0486.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/FS2_pt_alignment-n932-bdl-slt-arctic_b0486.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/FS2_pt_alignment-n932-clb-rms-arctic_b0486.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/FS2_pt_alignment-n932-bdl-rms-arctic_b0486.wav"></audio>
+          </td>
+        </tr>
+
+        <tr>
+          <td>AAS-VC</td>
+          <td>932</td>
+          <td>
+            <audio controls><source src="samples/AAS-n932-clb-slt-arctic_b0486.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/AAS-n932-bdl-slt-arctic_b0486.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/AAS-n932-clb-rms-arctic_b0486.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/AAS-n932-bdl-rms-arctic_b0486.wav"></audio>
+          </td>
+        </tr>
+
+        <tr>
+          <td>FS2-VC (No PT)</td>
+          <td>80</td>
+          <td>
+            <audio controls><source src="samples/FS2_nopt_alignment-n80-clb-slt-arctic_b0486.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/FS2_nopt_alignment-n80-bdl-slt-arctic_b0486.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/FS2_nopt_alignment-n80-clb-rms-arctic_b0486.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/FS2_nopt_alignment-n80-bdl-rms-arctic_b0486.wav"></audio>
+          </td>
+        </tr>
+
+        <tr>
+          <td>FS2-VC (PT)</td>
+          <td>80</td>
+          <td>
+            <audio controls><source src="samples/FS2_pt_alignment-n80-clb-slt-arctic_b0486.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/FS2_pt_alignment-n80-bdl-slt-arctic_b0486.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/FS2_pt_alignment-n80-clb-rms-arctic_b0486.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/FS2_pt_alignment-n80-bdl-rms-arctic_b0486.wav"></audio>
+          </td>
+        </tr>
+
+        <tr>
+          <td>AAS-VC</td>
+          <td>80</td>
+          <td>
+            <audio controls><source src="samples/AAS-n80-clb-slt-arctic_b0486.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/AAS-n80-bdl-slt-arctic_b0486.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/AAS-n80-clb-rms-arctic_b0486.wav"></audio>
+          </td>
+          <td>
+            <audio controls><source src="samples/AAS-n80-bdl-rms-arctic_b0486.wav"></audio>
+          </td>
+        </tr>
+
+    </table>
+
+       
+
+
+      </div>
+
+  <br>
+  <div><a href="../../index.html">[Back to top]</a> </div>
+  </body>
+</html>
