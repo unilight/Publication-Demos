@@ -1,0 +1,355 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Multi-speaker Text-to-speech Training with Speaker Anonymized Data</title>
+    <link rel="stylesheet" type="text/css" href="../../stylesheet.css"/>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="shortcut icon" href="../../imgs/talk.png">
+  </head>
+  <body>
+    <article>
+      <header>
+        <h1>Multi-speaker Text-to-speech Training with Speaker Anonymized Data</h1>
+      </header>
+    </article>
+
+    <!-- <div><b>Paper:</b> <a href="https://arxiv.org/abs/2309.07598">[arXiv]</a> </div> -->
+    <!-- <div><b>Code:</b> <a href="https://github.com/unilight/seq2seq-vc">https://github.com/unilight/seq2seq-vc</a> </div> -->
+    <div><b>Paper:</b> To be uploaded </div>
+    <div><b>Authors:</b> Wen-Chin Huang, Yi-Chiao Wu, Tomoki Toda.</div>
+    <!-- <div><b>Comments:</b> Submitted to Signal Processing Letters. </div> -->
+
+    <br>
+
+    <div style="width: 80%">
+      <b>Abstract:</b> The trend of scaling up speech generation models poses a threat of biometric information leakage of the identities of the voices in the training data, raising privacy and security concerns.
+      In this paper, we investigate training multi-speaker text-to-speech (TTS) models using data that underwent speaker anonymization (SA), a process that tends to hide the speaker identity of the input speech while maintaining other attributes.
+      Two signal processing-based and three deep neural network-based SA methods were used to anonymize VCTK, a multi-speaker TTS dataset, which is further used to train an end-to-end TTS model, VITS, to perform unseen speaker TTS during the testing phase. 
+      Extensive objective and subjective experimental evaluation results suggest that no single SA system dominates all the evaluation metrics.
+      More importantly, we found that UTMOS, a data-driven subjective rating predictor model, and GVD, a metric that measures the gain of voice distinctiveness, are good indicators of the downstream TTS performance, which can help researchers determine the goodness of the SA system for multi-speaker TTS training.
+    </div>
+
+    <div style="width: 80%">
+      <table style="margin: 30px">
+        <tr>
+          <td><img src="imgs/overview-4.png" style="height: 250px"/></td>
+          <td><img src="imgs/dnn-based.png" style="height: 250px"/></td>
+          <td><img src="imgs/scatter_scores.png" style="height: 250px"/></td>
+        </tr>
+        <tr>
+          <th>Problem formulation and goals</th>
+          <th>DNN-based methods</th>
+          <th>Scatter plot of the subjective evaluation results.</th>
+        </tr>
+      </table>
+    </div>
+
+    <div style="width: 80%">
+      <details open class="js-details">
+        <summary class="js-summary">
+          <span class="summary_inner">
+            Experiment 1: Evaluating the speaker anonymized training data
+            <span class="icon"></span>
+          </span>
+        </summary>
+        <div class="content js-content">
+          <div class="content_inner">
+            <h3>Compared systems</h3>
+              <ul>
+                <li><strong>Natural</strong>: Natural speech before speaker anonymization.</li>
+                <li>Signal processing based methods:
+                  <ul>
+                    <li><strong>Pitch shift</strong></li>
+                    <li><strong>VPC'22 B2</strong></li>
+                  </ul>
+                </li>
+                <li>Deep neural network based method:
+                  <ul>
+                    <li><strong>VPC'22 B1b</strong></li>
+                    <li><strong>GAN</strong></li>
+                    <li><strong>NACLM</strong></li>
+                  </ul>
+                </li>
+              </ul>
+              <h3>Speech Samples</h3>
+              <table>
+                <tr style="border-top: solid">
+                  <th>System</th><th>p227_001 (male)</th><th>p240_010 (female)</th><th>p259_026 (male)</th><th>p295_027 (female)</th>
+                </tr>
+                <tr style="border-bottom: solid;">
+                  <td></td>
+                  <td>Please call Stella.</td>
+                  <td>People look, but no one ever finds it.</td>
+                  <td>Smoking is also very important.</td>
+                  <td>However, the following year the cancer returned.</td>
+                </tr>
+
+                <tr style="border-bottom: solid;">
+                  <td>Natural</td>
+                  <td>
+                    <audio controls><source src="samples/gt/p227_001.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/gt/p240_010.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/gt/p259_026.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/gt/p295_027.wav"></audio>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Pitch shift</td>
+                  <td>
+                    <audio controls><source src="samples/anon_pitch_shift/p227_001.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/anon_pitch_shift/p240_010.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/anon_pitch_shift/p259_026.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/anon_pitch_shift/p295_027.wav"></audio>
+                  </td>
+                </tr>
+
+                <tr style="border-bottom: solid;">
+                  <td>VPC'22 B2</td>
+                  <td>
+                    <audio controls><source src="samples/anon_vpcb2/p227_001.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/anon_vpcb2/p240_010.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/anon_vpcb2/p259_026.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/anon_vpcb2/p295_027.wav"></audio>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>VPC'22 B1b</td>
+                  <td>
+                    <audio controls><source src="samples/anon_vpcb1b/p227_001.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/anon_vpcb1b/p240_010.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/anon_vpcb1b/p259_026.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/anon_vpcb1b/p295_027.wav"></audio>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>GAN</td>
+                  <td>
+                    <audio controls><source src="samples/anon_gan/p227_001.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/anon_gan/p240_010.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/anon_gan/p259_026.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/anon_gan/p295_027.wav"></audio>
+                  </td>
+                </tr>
+
+                <tr style="border-bottom: solid;">
+                  <td>NACLM</td>
+                  <td>
+                    <audio controls><source src="samples/anon_naclm/p227_001.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/anon_naclm/p240_010.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/anon_naclm/p259_026.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/anon_naclm/p295_027.wav"></audio>
+                  </td>
+                </tr>
+
+              </table>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <div style="width: 80%">
+      <details open class="js-details">
+        <summary class="js-summary">
+          <span class="summary_inner">
+            Experiment 2: Evaluating multi-speaker TTS models trained with speaker anonymized data
+            <span class="icon"></span>
+          </span>
+        </summary>
+        <div class="content js-content">
+          <div class="content_inner">
+            <h3>Compared systems</h3>
+              <ul>
+                <li><strong>Natural</strong>: Natural speech before speaker anonymization.</li>
+                <li><strong>Unanonymized</strong>: TTS model trained with unanonymized speech.</li>
+                <li>Signal processing based methods:
+                  <ul>
+                    <li><strong>Pitch shift</strong></li>
+                    <li><strong>VPC'22 B2</strong></li>
+                  </ul>
+                </li>
+                <li>Deep neural network based method:
+                  <ul>
+                    <li><strong>VPC'22 B1b</strong></li>
+                    <li><strong>GAN</strong></li>
+                    <li><strong>NACLM</strong></li>
+                  </ul>
+                </li>
+              </ul>
+              <h3>Speech Samples</h3>
+              <table>
+                <tr style="border-top: solid">
+                  <th>System</th><th>p225_298 (female)</th><th>p245_323 (male)</th><th>p248_344 (female)</th><th>p302_277 (male)</th>
+                </tr>
+                <tr style="border-bottom: solid;">
+                  <td></td>
+                  <td>It was deployed in the Gulf War.</td>
+                  <td>I saw some good things.</td>
+                  <td>They say that vital evidence was not heard in court.</td>
+                  <td>This is not, however, a General Election reshuffle.</td>
+                </tr>
+
+                <tr style="border-bottom: solid;">
+                  <td>Natural</td>
+                  <td>
+                    <audio controls><source src="samples/gt/p225_298.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/gt/p245_323.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/gt/p248_344.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/gt/p302_277.wav"></audio>
+                  </td>
+                </tr>
+
+                <tr style="border-bottom: solid;">
+                  <td>Unanonymized</td>
+                  <td>
+                    <audio controls><source src="samples/tts_unanon/p225_298.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/tts_unanon/p245_323.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/tts_unanon/p248_344.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/tts_unanon/p302_277.wav"></audio>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Pitch shift</td>
+                  <td>
+                    <audio controls><source src="samples/tts_pitch_shift/p225_298.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/tts_pitch_shift/p245_323.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/tts_pitch_shift/p248_344.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/tts_pitch_shift/p302_277.wav"></audio>
+                  </td>
+                </tr>
+
+                <tr style="border-bottom: solid;">
+                  <td>VPC'22 B2</td>
+                  <td>
+                    <audio controls><source src="samples/tts_vpcb2/p225_298.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/tts_vpcb2/p245_323.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/tts_vpcb2/p248_344.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/tts_vpcb2/p302_277.wav"></audio>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>VPC'22 B1b</td>
+                  <td>
+                    <audio controls><source src="samples/tts_vpcb1b/p225_298.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/tts_vpcb1b/p245_323.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/tts_vpcb1b/p248_344.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/tts_vpcb1b/p302_277.wav"></audio>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>GAN</td>
+                  <td>
+                    <audio controls><source src="samples/tts_gan/p225_298.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/tts_gan/p245_323.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/tts_gan/p248_344.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/tts_gan/p302_277.wav"></audio>
+                  </td>
+                </tr>
+
+                <tr style="border-bottom: solid;">
+                  <td>NACLM</td>
+                  <td>
+                    <audio controls><source src="samples/tts_naclm/p225_298.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/tts_naclm/p245_323.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/tts_naclm/p248_344.wav"></audio>
+                  </td>
+                  <td>
+                    <audio controls><source src="samples/tts_naclm/p302_277.wav"></audio>
+                  </td>
+                </tr>
+
+              </table>
+          </div>
+        </div>
+      </details>
+    </div>
+
+      
+
+  <br>
+  <div><a href="../../index.html">[Back to top]</a> </div>
+
+  <script src="animation.js"></script>
+  </body>
+</html>
