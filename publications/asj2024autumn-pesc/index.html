@@ -1,0 +1,304 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Demo samples for the voice conversion experiments in the paper "Simulated electrolaryngeal speech corpus"</title>
+    <link rel="stylesheet" type="text/css" href="../../stylesheet.css"/>
+    <!-- <link rel="shortcut icon" href="../../imgs/talk.png"> -->
+  </head>
+  <body>
+    <article>
+      <header>
+        <h1>Demo samples for the voice conversion experiments in the paper "Simulated electrolaryngeal speech corpus"</h1>
+      </header>
+    </article>
+
+    <div><b>Paper:</b> To be uploaded. </div>
+    <div><b>Code:</b> <a href="https://github.com/unilight/seq2seq-vc">https://github.com/unilight/seq2seq-vc</a> </div>
+    <div><b>Authors:</b> KOBAYASHI, Kazuhiro and OGITA, Kenichi (Nagoya Univ./TARVO, Inc.) and DING, Ma and VIOLETA, Lester and HUANG, WenChin and TODA, Tomoki (Nagoya Univ.)</div>
+    <div><b>Comments:</b> Submitted to ASJ2024 Autumn (日本音響学会2024年秋季研究発表会). </div>
+
+    <br>
+
+    <div style="width: 80%">
+      <b>Brief explanation (not the abstract of the paper):</b><br>
+      This paper presents PESC (Pseudo-electrolaryngeal Speech Corpus), a dataset that consists of Japanese transcripts and speech data from multiple speakers, including both natural speech and electrolarynx (EL) speech. The corpus includes parallel data of 200 utterances per speaker from 14 healthy individuals, comprising both natural and pseudo-EL speech, as well as evaluation data of 50 utterances from 14 laryngectomees.<br><br>
+
+      In this demo page, we present the voice conversion (VC) samples. The experiments was in a one-to-one setting, and the model was AAS-VC, a non-autoregressive sequence-to-sequence VC model whose implementation is open-sourced (see link above). We used the 200 parallel training utterances of each pseudo-speaker pair. The train/val/test split was 140/10/50. For simplicity, a Parallel WaveGAN vocoder was trained using the training utterances from all 20 speakers.
+    </div>
+
+    <div style="width: 80%">
+        <h2>Speech Samples</h2>
+
+        <h3 class="transcript">Transcription: 今日も一日 頑張りましょう</h3>
+        <br>
+        <table>
+            <tr style="border-top: solid; border-bottom: solid;">
+              <th>Speaker</th><th>Source</th><th>Converted</th><th>Ground truth</th>
+            </tr>
+
+            <tr>
+              <td>009</td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE009/NETRAB00001.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE009_SP_PS_MALE009/NETRAB00001.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/SP_PS_MALE009/NETRAB00001.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>011</td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE011/NETRAB00001.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE011_SP_PS_MALE011/NETRAB00001.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/SP_PS_MALE011/NETRAB00001.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>008</td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE008/NETRAB00001.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE008_SP_PS_MALE008/NETRAB00001.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/SP_PS_MALE008/NETRAB00001.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>003</td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE003/NETRAB00001.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE003_SP_PS_MALE003/NETRAB00001.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/SP_PS_MALE003/NETRAB00001.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>002</td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE002/NETRAB00001.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE002_SP_PS_MALE002/NETRAB00001.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/SP_PS_MALE002/NETRAB00001.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>010</td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE010/NETRAB00001.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE010_SP_PS_MALE010/NETRAB00001.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/SP_PS_MALE010/NETRAB00001.wav"></audio>
+              </td>
+            </tr>
+
+        </table>
+
+        <!-- ========= -->
+
+        <h3 class="transcript">Transcription: どうぞよろしくお願いします</h3>
+        <br>
+        <table>
+            <tr style="border-top: solid; border-bottom: solid;">
+              <th>Speaker</th><th>Source</th><th>Converted</th><th>Ground truth</th>
+            </tr>
+
+            <tr>
+              <td>009</td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE009/NETRAB00002.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE009_SP_PS_MALE009/NETRAB00002.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/SP_PS_MALE009/NETRAB00002.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>011</td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE011/NETRAB00002.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE011_SP_PS_MALE011/NETRAB00002.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/SP_PS_MALE011/NETRAB00002.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>008</td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE008/NETRAB00002.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE008_SP_PS_MALE008/NETRAB00002.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/SP_PS_MALE008/NETRAB00002.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>003</td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE003/NETRAB00002.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE003_SP_PS_MALE003/NETRAB00002.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/SP_PS_MALE003/NETRAB00002.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>002</td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE002/NETRAB00002.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE002_SP_PS_MALE002/NETRAB00002.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/SP_PS_MALE002/NETRAB00002.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>010</td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE010/NETRAB00002.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE010_SP_PS_MALE010/NETRAB00002.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/SP_PS_MALE010/NETRAB00002.wav"></audio>
+              </td>
+            </tr>
+
+        </table>
+
+        <!-- ========= -->
+
+        <h3 class="transcript">Transcription: 今年一年間 お疲れ様でした</h3>
+        <br>
+        <table>
+            <tr style="border-top: solid; border-bottom: solid;">
+              <th>Speaker</th><th>Source</th><th>Converted</th><th>Ground truth</th>
+            </tr>
+
+            <tr>
+              <td>009</td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE009/NETRAB00003.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE009_SP_PS_MALE009/NETRAB00003.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/SP_PS_MALE009/NETRAB00003.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>011</td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE011/NETRAB00003.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE011_SP_PS_MALE011/NETRAB00003.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/SP_PS_MALE011/NETRAB00003.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>008</td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE008/NETRAB00003.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE008_SP_PS_MALE008/NETRAB00003.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/SP_PS_MALE008/NETRAB00003.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>003</td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE003/NETRAB00003.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE003_SP_PS_MALE003/NETRAB00003.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/SP_PS_MALE003/NETRAB00003.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>002</td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE002/NETRAB00003.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE002_SP_PS_MALE002/NETRAB00003.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/SP_PS_MALE002/NETRAB00003.wav"></audio>
+              </td>
+            </tr>
+
+            <tr>
+              <td>010</td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE010/NETRAB00003.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/EL_PS_MALE010_SP_PS_MALE010/NETRAB00003.wav"></audio>
+              </td>
+              <td>
+                <audio controls><source src="samples/SP_PS_MALE010/NETRAB00003.wav"></audio>
+              </td>
+            </tr>
+
+        </table>
+
+
+
+      </div>
+
+  <br>
+  <div><a href="../../index.html">[Back to top]</a> </div>
+  </body>
+</html>
