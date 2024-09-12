@@ -1,0 +1,71 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Investigating Factors Related to the Naturalness of Synthesized Unison Singing</title>
+    <link rel="stylesheet" type="text/css" href="../../stylesheet.css"/>
+    <link rel="shortcut icon" href="../../imgs/talk.png">
+  </head>
+  <body>
+    <article>
+      <header>
+        <h1>Investigating Factors Related to the Naturalness of Synthesized Unison Singing</h1>
+      </header>
+    </article>
+
+    <div><b>Paper:</b> To be uploaded</div>
+    <div><b>Authors:</b> Kaito Nishizawa, Ryuichi Yamamoto, Wen-Chin Huang, Tomoki Toda</div>
+    <div><b>Comments:</b> Submitted to ICASSP 2025. </div>
+
+    <br>
+
+    <div style="width: 80%">
+      <b>Abstract:</b> Singing voice synthesis (SVS) technology has progressed rapidly in recent years. However, vocal ensemble synthesis has not yet been widely explored. In this work, we focus on unison singing, which is to have several singers singing the same melody together. Our goal is to understand what acoustic properties affect the naturalness of the synthesized unison singing. We utilize NNSVS, an SVS toolkit that allows us to manipulate individual acoustic features to investigate their effect in unison singing synthesis. Through listening tests, it was shown that timing and f0 are important factors to synthesize natural unison singing. Furthermore, we discovered the potential to generate unison singing using a SVS model trained only with a single singer dataset.
+    </div>
+
+    <div>
+      <h2>The SVS model used in this work</h2>
+      <img src="model.png" style="width: 20%;"/>
+    </div>
+
+    <div style="width: 80%">
+        <h2>Experiment 1: factors to the naturalness of unison singing</h2>
+
+        <table>
+            <tr style="border-top: solid; border-bottom: solid;">
+              <th>timing</th><th>f0</th><th>spectrum</th><th>naturalness MOS</th><th>sample</th>
+            </tr>
+
+            <tr><td>-</td><td>-</td><td>-</td><td>1.56 ± 0.15</td><td><audio controls><source src="samples/ex1/1st_color____.wav"></audio></td></tr>
+            <tr><td>V</td><td>-</td><td>-</td><td>3.94 ± 0.11</td><td><audio controls><source src="samples/ex1/1st_color_t__.wav"></audio></td></tr>
+            <tr><td>-</td><td>V</td><td>-</td><td>3.80 ± 0.11</td><td><audio controls><source src="samples/ex1/1st_color__f_.wav"></audio></td></tr>
+            <tr><td>-</td><td>-</td><td>V</td><td>1.66 ± 0.16</td><td><audio controls><source src="samples/ex1/1st_color___a.wav"></audio></td></tr>
+            <tr><td>V</td><td>V</td><td>-</td><td>4.10 ± 0.10</td><td><audio controls><source src="samples/ex1/1st_color_tf_.wav"></audio></td></tr>
+            <tr><td>-</td><td>V</td><td>V</td><td>4.04 ± 0.11</td><td><audio controls><source src="samples/ex1/1st_color__fa.wav"></audio></td></tr>
+            <tr><td>V</td><td>-</td><td>V</td><td>4.06 ± 0.11</td><td><audio controls><source src="samples/ex1/1st_color_t_a.wav"></audio></td></tr>
+            <tr><td>V</td><td>V</td><td>V</td><td>4.14 ± 0.11</td><td><audio controls><source src="samples/ex1/1st_color_tfa.wav"></audio></td></tr>
+        </table>
+    </div>
+
+    <div style="width: 80%">
+      <h2>Experiment 2: influence of the number of solo singing samples</h2>
+
+      <table>
+          <tr style="border-top: solid; border-bottom: solid;">
+            <th>Number of solo singing samples</th><th>sample</th>
+          </tr>
+
+          <tr><td>2</td><td><audio controls><source src="samples/ex2/namine_ritsu_katatsumuri_Afla_tfa_mixed_002sounds_2024-05-04-10h06m30s.wav"></audio></td></tr>
+          <tr><td>4</td><td><audio controls><source src="samples/ex2/namine_ritsu_katatsumuri_Afla_tfa_mixed_004sounds_2024-05-04-10h06m30s.wav"></audio></td></tr>
+          <tr><td>8</td><td><audio controls><source src="samples/ex2/namine_ritsu_katatsumuri_Afla_tfa_mixed_008sounds_2024-05-04-10h06m30s.wav"></audio></td></tr>
+          <tr><td>16</td><td><audio controls><source src="samples/ex2/namine_ritsu_katatsumuri_Afla_tfa_mixed_016sounds_2024-05-04-10h06m30s.wav"></audio></td></tr>
+          <tr><td>32</td><td><audio controls><source src="samples/ex2/namine_ritsu_katatsumuri_Afla_tfa_mixed_032sounds_2024-05-04-10h06m31s.wav"></audio></td></tr>
+          <tr><td>64</td><td><audio controls><source src="samples/ex2/namine_ritsu_katatsumuri_Afla_tfa_mixed_064sounds_2024-05-04-10h06m31s.wav"></audio></td></tr>
+          <tr><td>128</td><td><audio controls><source src="samples/ex2/namine_ritsu_katatsumuri_Afla_tfa_mixed_128sounds_2024-05-04-10h06m32s.wav"></audio></td></tr>
+
+      </table>
+  </div>
+
+  <br>
+  <div><a href="../../index.html">[Back to top]</a> </div>
+  </body>
+</html>
