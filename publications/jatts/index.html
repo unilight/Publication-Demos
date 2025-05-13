@@ -1,0 +1,87 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>JATTS: A Comparison-oriented Japanese Text-to-speech Open-sourced Toolkit</title>
+    <link rel="stylesheet" type="text/css" href="../../stylesheet.css"/>
+    <link rel="shortcut icon" href="../../imgs/talk.png">
+    <meta name="description" content="Demo page for the project: JATTS: A Comparison-oriented Japanese Text-to-speech Open-sourced Toolkit.">
+  </head>
+  <body>
+    <article>
+      <header>
+        <h1>JATTS: A Comparison-oriented Japanese Text-to-speech Open-sourced Toolkit</h1>
+        <h1>JATTS: 日本語テキスト音声合成における手法比較に向けたオープンツールキット</h1>
+      </header>
+    </article>
+
+    <div><b>Paper/ 論文:</b> To be uploaded</div>
+    <div><b>Authors / 著者:</b> Wen-Chin Huang, Lester Violeta, Tomoki Toda (戸田智基)</div>
+    <div><b>Codebase / コードベース:</b> <a href="https://github.com/unilight/jatts">https://github.com/unilight/jatts</a> </div>
+    <div><b>Comments / 出版情報:</b> <a href="https://www.ipsj.or.jp/kenkyukai/event/mus143slp156.html">音学シンポジウム 2025 (第143回音楽情報科学・第156回音声言語情報処理合同研究発表会)</a>発表 </div>
+
+    <br>
+
+    <div style="width: 60%">
+      <p>
+        <b>English abstract / 英語要旨:</b> This paper presents JATTS, our initiative on building an open-source toolkit that implements a comprehensive set of representative, modern-day text-to-speech (TTS) methods, as well as the benchmark results using Japanese datasets. We analyze how different design choices affect synthesis quality, including alignment strategies, model architectures, and training objectives. We also explore the prevalent, in-context learning-based approaches towards large-scale TTS, and discuss practical challenges in training and evaluation. Our findings provide insights into building more expressive and robust Japanese TTS systems and highlight the need for better datasets and benchmarks for future research. 
+      </p>
+
+      <p>
+        <b>Japanese abstract / 和文要旨:</b> 本稿では，2021年以降に提案された日本語テキスト音声合成の代表的手法を網羅的に実装したオープンソースツールキットJATTSの開発について述べる。日本語データセットを用いた比較実験を通じて，アライメント手法やモデル構造および目標関数が音声合成性能に及ぼす影響を分析した。
+      </p>
+    </div>
+
+    <div style="width: 60%">
+        <h2>JSUT experiments / JSUTにおける実験結果</h2>
+
+        <table>
+            <tr style="border-top: solid; border-bottom: solid;">
+              <th>Model</th><th>Alignment</th><th>Sample</th>
+            </tr>
+
+            <tr><td>Ground truth</td><td>--</td><td><audio controls><source src="samples/jsut/BASIC5000_4752.wav"></audio></td></tr>
+            <tr><td>FastSpeech 2</td><td>External</td><td><audio controls><source src="samples/jsut/fs2_BASIC5000_4752.wav"></audio></td></tr>
+            <tr><td>Matcha-TTS</td><td>External</td><td><audio controls><source src="samples/jsut/matcha_tts_mas_BASIC5000_4752.wav"></audio></td></tr>
+            <tr><td>Matcha-TTS</td><td>Implicit</td><td><audio controls><source src="samples/jsut/matcha_tts_BASIC5000_4752.wav"></audio></td></tr>
+            <tr><td>VITS</td><td>Implicit</td><td><audio controls><source src="samples/jsut/vits_BASIC5000_4752.wav"></audio></td></tr>
+        </table>
+    </div>
+
+    <div style="width: 60%">
+      <h2>Hi-Fi-Captain experiments / Hi-Fi-Captainにおける実験結果</h2>
+
+      <table>
+          <tr style="border-top: solid; border-bottom: solid;">
+            <th>Model</th><th>Alignment</th><th>Sample</th>
+          </tr>
+
+          <tr><td>Ground truth</td><td>--</td><td><audio controls><source src="samples/hfc/Seikatsu01_C-U__000100.wav"></audio></td></tr>
+          <tr><td>FastSpeech 2</td><td>External</td><td><audio controls><source src="samples/hfc/fs2_Seikatsu01_C-U__000100.wav"></audio></td></tr>
+          <tr><td>Matcha-TTS</td><td>External</td><td><audio controls><source src="samples/hfc/matcha_tts_mas_Seikatsu01_C-U__000100.wav"></audio></td></tr>
+          <tr><td>Matcha-TTS</td><td>Implicit</td><td><audio controls><source src="samples/hfc/matcha_tts_Seikatsu01_C-U__000100.wav"></audio></td></tr>
+          <tr><td>VITS</td><td>Implicit</td><td><audio controls><source src="samples/hfc/vits_Seikatsu01_C-U__000100.wav"></audio></td></tr>
+      </table>
+  </div>
+
+  <div style="width: 60%">
+    <h2>JVS experiments / JVSにおける実験結果</h2>
+
+    <table>
+        <tr style="border-top: solid; border-bottom: solid;">
+          <th>Model</th><th>Alignment</th><th>Sample</th>
+        </tr>
+
+        <tr><td>Ground truth</td><td>--</td><td><audio controls><source src="samples/jvs/VOICEACTRESS100_092.wav"></audio></td></tr>
+        <tr><td>Prompt (reference sample)</td><td>--</td><td><audio controls><source src="samples/jvs/091_BASIC5000_2431.wav"></audio></td></tr>
+        <tr><td>FastSpeech 2</td><td>External</td><td><audio controls><source src="samples/jvs/fs2_jvs091_parallel_VOICEACTRESS100_092.wav"></audio></td></tr>
+        <tr><td>Matcha-TTS</td><td>External</td><td><audio controls><source src="samples/jvs/matcha_tts_mas_jvs091_parallel_VOICEACTRESS100_092.wav"></audio></td></tr>
+        <tr><td>Matcha-TTS</td><td>Implicit</td><td><audio controls><source src="samples/jvs/matcha_tts_jvs091_parallel_VOICEACTRESS100_092.wav"></audio></td></tr>
+        <tr><td>VITS</td><td>Implicit</td><td>(Fail)</td></tr>
+        <tr><td>VALL-E (trained on CSJ)</td><td>--</td><td><audio controls><source src="samples/jvs/vall-e_new_bs256_63k_bs192_40k_jvs091_parallel_VOICEACTRESS100_092.wav"></audio></td></tr>
+    </table>
+  </div>
+
+  <br>
+  <div><a href="../../index.html">[Back to top]</a> </div>
+  </body>
+</html>
